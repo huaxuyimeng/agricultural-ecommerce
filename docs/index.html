@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>绿源农鲜 · 智慧农产品电商平台</title>
+<meta name="description" content="一套基于前后端分离架构的农产品电商系统，用户/商家/管理员三端协同，Vue 2 + Spring Boot 2 + MyBatis-Plus + JWT。" />
+<meta name="theme-color" content="#FCFCFD">
+<meta property="og:title" content="绿源农鲜 · 智慧农产品电商平台">
+<meta property="og:description" content="三端协同 / 19 控制器 / 38 实体 / 22 数据表 / 完整业务链路，从下单到售后全程贯通。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='8' fill='%23047857'/%3E%3Cpath d='M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* =============================================================
+   绿源农鲜 · 落地页 · 单文件版本（≤300 KB）
+   风格继承 AIHub · 配色：翠绿 + 琥珀（自然 / 农产品主题）
+   ============================================================= */
+
+:root{
+  /* 画布 */
+  --canvas:#FCFCFD;
+  --page-veil:rgba(252,252,253,.70);
+  --canvas-tint:#F6F6F4;
+  --surface:#FFFFFF;
+  --surface-glass:rgba(255,255,255,.86);
+  --surface-sink:#F3F3F0;
+
+  /* 墨色 */
+  --ink-1:#16161F;
+  --ink-2:#2A2A38;
+  --ink-3:#5A5A6E;
+  --ink-4:#63637A;
+  --ink-invert:#FFFFFF;
+
+  /* 描边 */
+  --line:rgba(22,22,31,.08);
+  --line-strong:rgba(22,22,31,.15);
+  --line-soft:rgba(22,22,31,.05);
+  --divider:#EAEAE5;
+
+  /* 品牌色：翠绿 + 琥珀 */
+  --hue-green:#10B981;
+  --hue-emerald:#059669;
+  --hue-teal:#0D9488;
+  --hue-lime:#84CC16;
+  --hue-amber:#F59E0B;
+  --hue-orange:#EA580C;
+
+  /* 深色号（全部 ≥5.0:1 对比度） */
+  --deep-1:#047857;   /* 翠绿 */
+  --deep-2:#0F766E;   /* 青绿 */
+  --deep-3:#B45309;   /* 琥珀棕 */
+  --deep-4:#9A3412;   /* 深橙 */
+  --deep-5:#166534;   /* 墨绿 */
+
+  /* 主色 */
+  --primary:var(--deep-1);
+  --primary-hover:#065F46;
+  --primary-soft:rgba(4,120,87,.09);
+  --primary-ring:rgba(4,120,87,.32);
+  --accent:var(--deep-3);
+  --accent-soft:rgba(180,83,9,.09);
+
+  /* 状态 */
+  --success:#047857;
+  --warning:#B45309;
+  --danger:#9F1239;
+  --info:#1D4ED8;
+
+  /* 流光变量（5 色光谱：绿 → 青 → 琥珀 → 橙 → 墨绿） */
+  --g1:var(--deep-1);
+  --g2:var(--deep-2);
+  --g3:var(--deep-3);
+  --g4:var(--deep-4);
+  --g5:var(--deep-5);
+
+  /* 字号 / 字阶 */
+  --fs-display:clamp(2.4rem,1.6rem+3.2vw,3.8rem);
+  --fs-h2:clamp(1.8rem,1.4rem+1.6vw,2.4rem);
+  --fs-h3:clamp(1.15rem,1rem+.6vw,1.35rem);
+  --fs-body:.9375rem;
+  --fs-sm:.8125rem;
+  --fs-xs:.75rem;
+
+  /* 间距 */
+  --space-1:.5rem;
+  --space-2:1rem;
+  --space-3:1.5rem;
+  --space-4:2rem;
+  --space-5:3rem;
+  --space-6:4rem;
+  --space-section-md:4.5rem;
+  --space-section-lg:6.5rem;
+
+  /* 圆角 */
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:14px;
+  --radius-xl:20px;
+  --radius-2xl:28px;
+
+  /* 字体 */
+  --font-sans:"Inter","PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono",Consolas,Menlo,monospace;
+
+  /* 动效 */
+  --t-fast:.18s ease;
+  --t-mid:.32s cubic-bezier(.2,.7,.3,1);
+  --ease-breath:cubic-bezier(.42,0,.58,1);
+
+  /* 渐变 */
+  --grad-spectrum:linear-gradient(100deg,
+    var(--hue-green) 0%,var(--hue-teal) 22%,var(--hue-lime) 44%,
+    var(--hue-amber) 65%,var(--hue-orange) 84%,var(--hue-green) 100%);
+  --grad-text:linear-gradient(100deg,
+    var(--g1) 0%,var(--g2) 26%,var(--g3) 50%,var(--g4) 74%,var(--g5) 100%);
+  --grad-solid:linear-gradient(100deg,
+    var(--g1) 0%,var(--g2) 26%,var(--g3) 50%,var(--g4) 74%,var(--g5) 100%);
+  --grad-pan-dur:24s;
+  --grad-band-text:300% 100%;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  font-size:var(--fs-body);
+  line-height:1.7;
+  color:var(--ink-2);
+  background:var(--canvas);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+/* 极光背景层 + 整页冷白罩 */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 50% at 12% 8%,rgba(16,185,129,.22),transparent 60%),
+    radial-gradient(50% 45% at 88% 12%,rgba(245,158,11,.18),transparent 60%),
+    radial-gradient(55% 50% at 78% 90%,rgba(13,148,136,.18),transparent 65%),
+    radial-gradient(50% 45% at 18% 85%,rgba(132,204,22,.16),transparent 65%),
+    var(--canvas);
+  filter:saturate(1.1);
+  animation:aurora 28s var(--ease-breath) infinite alternate;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;
+  background:var(--page-veil);
+  pointer-events:none;
+}
+@keyframes aurora{
+  0%{background-position:0% 0%,100% 0%,100% 100%,0% 100%}
+  50%{background-position:50% 30%,50% 0%,50% 70%,50% 100%}
+  100%{background-position:100% 50%,0% 30%,0% 50%,100% 50%}
+}
+
+a,button{touch-action:manipulation;color:var(--primary);text-decoration:none;transition:color var(--t-fast)}
+a:hover{color:var(--primary-hover)}
+strong{color:var(--ink-1);font-weight:700}
+code{font-family:var(--font-mono);font-size:.92em;color:var(--primary)}
+img,svg{max-width:100%}
+
+h1,h2,h3,h4{color:var(--ink-1);margin:0;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:var(--fs-display);line-height:1.05;font-weight:800;letter-spacing:-.03em}
+h2{font-size:var(--fs-h2);line-height:1.15}
+h3{font-size:var(--fs-h3);line-height:1.3;font-weight:600;letter-spacing:-.01em}
+h4{font-size:var(--fs-h4);line-height:1.4;font-weight:600}
+
+p{margin:0 0 var(--space-2);text-wrap:pretty;max-width:65ch}
+figure{margin:0}
+ul{margin:0;padding:0;list-style:none}
+
+::selection{background:var(--primary-ring);color:var(--ink-1)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+*{scrollbar-width:thin;scrollbar-color:#C9C9C0 transparent}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:#C9C9C0;border-radius:5px}
+
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 1.5rem}
+
+/* ---- 跳转 ---- */
+.skip-link{position:absolute;left:-999px;top:0;z-index:9999;background:var(--primary);color:#fff;padding:.5rem 1rem;border-radius:0 0 var(--radius-md) 0;font-weight:600}
+.skip-link:focus{left:0;color:#fff}
+
+/* =============================================================
+   导航
+   ============================================================= */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);background:rgba(252,252,253,.72);border-bottom:1px solid var(--line-soft)}
+.nav__inner{display:flex;align-items:center;gap:1.5rem;height:60px}
+.nav__brand{display:flex;align-items:center;gap:.5rem;font-weight:800;color:var(--ink-1);font-size:1.05rem;letter-spacing:-.01em}
+.nav__brand svg{flex-shrink:0}
+.nav__links{display:flex;gap:.25rem;margin-left:1.5rem;flex:1}
+.nav__link{padding:.4rem .75rem;color:var(--ink-3);font-weight:500;font-size:.875rem;border-radius:var(--radius-sm);transition:all var(--t-fast)}
+.nav__link:hover{color:var(--ink-1);background:var(--surface-sink)}
+.nav__link[aria-current="page"]{color:var(--ink-1);background:var(--primary-soft)}
+.nav__actions{display:flex;gap:.5rem}
+.nav__toggle{display:none;background:none;border:0;color:var(--ink-2);cursor:pointer;padding:.4rem;border-radius:var(--radius-sm)}
+.nav__toggle:hover{background:var(--surface-sink)}
+.nav__drawer{display:none}
+
+/* =============================================================
+   按钮
+   ============================================================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.7rem 1.2rem;border-radius:var(--radius-md);font-weight:600;font-size:.875rem;line-height:1;border:1px solid transparent;cursor:pointer;transition:all var(--t-mid);white-space:nowrap;text-decoration:none}
+.btn--sm{padding:.45rem .85rem;font-size:.8125rem}
+.btn--lg{padding:.85rem 1.5rem;font-size:.9375rem}
+.btn--primary{color:#fff;background:var(--grad-solid);background-size:200% 100%;background-position:0% 50%;box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 8px 20px -6px rgba(4,120,87,.45)}
+.btn--primary:hover{color:#fff;background-position:100% 50%;box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 12px 28px -6px rgba(4,120,87,.55);transform:translateY(-1px)}
+.btn--secondary{color:var(--ink-1);background:var(--surface);border-color:var(--line-strong)}
+.btn--secondary:hover{color:var(--ink-1);background:var(--surface-sink);border-color:var(--ink-4)}
+.btn--ghost{color:var(--ink-2);background:transparent}
+.btn--ghost:hover{color:var(--ink-1);background:var(--surface-sink)}
+.btn--light{color:var(--ink-1);background:#fff;border-color:var(--line)}
+.btn--light:hover{background:var(--surface-sink);color:var(--ink-1)}
+.btn svg{flex-shrink:0}
+
+/* =============================================================
+   Hero（5:7 非对称：原则列表 + 模拟产品窗口 + 浮动卡）
+   ============================================================= */
+.hero{padding-block:var(--space-section-lg) var(--space-section-md);overflow:hidden}
+.hero__inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.hero__copy{max-width:600px;min-width:0}
+.tag{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;background:var(--primary-soft);color:var(--primary);border-radius:999px;font-size:var(--fs-xs);font-weight:600;margin-bottom:1.25rem;border:1px solid rgba(4,120,87,.18)}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 0 rgba(4,120,87,.6);animation:pulse 2s var(--ease-breath) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(4,120,87,.6)}70%{box-shadow:0 0 0 6px rgba(4,120,87,0)}100%{box-shadow:0 0 0 0 rgba(4,120,87,0)}}
+.hero__title{margin-bottom:1.25rem;background-image:var(--grad-text);background-size:var(--grad-band-text) 100%;background-repeat:no-repeat;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:grad-pan var(--grad-pan-dur) var(--ease-breath) infinite alternate}
+@keyframes grad-pan{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.hero__lead{color:var(--ink-3);font-size:clamp(1rem,.95rem+.25vw,1.125rem);line-height:1.7;max-width:52ch;margin-bottom:1.5rem}
+.hero__principles{display:grid;gap:.85rem;margin:0 0 1.5rem;padding:0}
+.hero__principles li{display:flex;align-items:flex-start;gap:.75rem;color:var(--ink-2);font-size:clamp(.9375rem,.9rem+.2vw,1.0625rem);line-height:1.6}
+.hero__principles li::before{content:"";flex-shrink:0;width:6px;height:6px;margin-top:.5rem;border-radius:50%;background:var(--grad-spectrum);background-size:200% 100%}
+.hero__principle-meta{margin-left:auto;flex-shrink:0;color:var(--ink-4);font-size:var(--fs-xs);font-weight:500;padding:.15rem .5rem;background:var(--surface-sink);border-radius:999px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.75rem}
+
+/* 模拟产品窗口（CSS 纯绘，0 图片） */
+.hero__media{position:relative;min-width:0}
+.window{background:var(--surface);border-radius:var(--radius-xl);border:1px solid var(--line-strong);box-shadow:0 30px 60px -20px rgba(22,22,31,.18),0 0 0 1px rgba(255,255,255,.6) inset;overflow:hidden}
+.window__bar{display:flex;align-items:center;gap:.4rem;padding:.65rem 1rem;background:linear-gradient(180deg,#FAFAF7,#F3F3F0);border-bottom:1px solid var(--line)}
+.window__dot{width:11px;height:11px;border-radius:50%;background:#E5E5DD}
+.window__dot:nth-child(1){background:#EF4444}
+.window__dot:nth-child(2){background:#F59E0B}
+.window__dot:nth-child(3){background:#10B981}
+.window__addr{margin-left:.75rem;font-family:var(--font-mono);font-size:.75rem;color:var(--ink-4)}
+.window__body{padding:1.25rem;min-height:340px;background:linear-gradient(180deg,#FCFCF9,#F8F8F4)}
+.mock-product{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.mock-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:.75rem;display:flex;flex-direction:column;gap:.4rem;transition:transform var(--t-mid)}
+.mock-card:nth-child(1){animation:mock-float 4s var(--ease-breath) infinite}
+.mock-card:nth-child(2){animation:mock-float 4s var(--ease-breath) infinite .4s}
+.mock-card:nth-child(3){animation:mock-float 4s var(--ease-breath) infinite .8s}
+.mock-card:nth-child(4){animation:mock-float 4s var(--ease-breath) infinite 1.2s}
+.mock-card:nth-child(5){animation:mock-float 4s var(--ease-breath) infinite 1.6s}
+.mock-card:nth-child(6){animation:mock-float 4s var(--ease-breath) infinite 2s}
+@keyframes mock-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.mock-thumb{aspect-ratio:1/1;border-radius:var(--radius-sm);background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(245,158,11,.16));position:relative;overflow:hidden}
+.mock-thumb::after{content:"";position:absolute;inset:18%;background:radial-gradient(circle,rgba(4,120,87,.5) 0%,transparent 65%);border-radius:50%}
+.mock-thumb--1::after{background:radial-gradient(circle,rgba(16,185,129,.65) 0%,transparent 60%)}
+.mock-thumb--2::after{background:radial-gradient(circle,rgba(245,158,11,.65) 0%,transparent 60%)}
+.mock-thumb--3::after{background:radial-gradient(circle,rgba(132,204,22,.65) 0%,transparent 60%)}
+.mock-thumb--4::after{background:radial-gradient(circle,rgba(239,68,68,.5) 0%,transparent 60%)}
+.mock-thumb--5::after{background:radial-gradient(circle,rgba(234,88,12,.65) 0%,transparent 60%)}
+.mock-thumb--6::after{background:radial-gradient(circle,rgba(13,148,136,.65) 0%,transparent 60%)}
+.mock-title{font-size:.7rem;color:var(--ink-2);font-weight:500;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.mock-price{font-size:.75rem;font-weight:700;color:var(--deep-3);font-family:var(--font-mono)}
+.mock-tag{font-size:.6rem;padding:.1rem .35rem;background:var(--primary-soft);color:var(--primary);border-radius:4px;font-weight:600}
+
+/* 浮动卡 */
+.hero__float{position:absolute;background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:var(--radius-md);padding:.5rem .75rem;font-size:var(--fs-xs);font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:.4rem;box-shadow:0 8px 24px -8px rgba(22,22,31,.18);z-index:2}
+.hero__float svg{flex-shrink:0;color:var(--success)}
+.hero__float--tl{top:-1rem;left:-1.5rem;animation:float 6s var(--ease-breath) infinite}
+.hero__float--tr{top:3rem;right:-1.25rem;animation:float 6s var(--ease-breath) infinite 1s}
+.hero__float--br{bottom:-1rem;right:1rem;animation:float 6s var(--ease-breath) infinite 2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* =============================================================
+   Section 通用
+   ============================================================= */
+.section{padding-block:var(--space-section-md)}
+.section--lg{padding-block:var(--space-section-lg)}
+.section--subtle{background:var(--surface-tint,rgba(255,255,255,.4))}
+.section__head{max-width:760px;margin:0 0 2.5rem}
+.section__head--center{margin-inline:auto;text-align:center}
+.section__eyebrow{display:inline-block;color:var(--primary);font-size:var(--fs-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.section__title{margin-bottom:.75rem}
+.section__lead{color:var(--ink-3);font-size:clamp(1rem,.95rem+.2vw,1.0625rem);max-width:60ch;margin:0}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease-breath),transform .7s var(--ease-breath)}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+
+/* =============================================================
+   Stats 大数字带
+   ============================================================= */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl);padding:2rem;box-shadow:0 4px 16px -8px rgba(22,22,31,.08)}
+.stat{padding:0 .5rem;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat__num{font-size:clamp(2rem,1.6rem+1.4vw,2.8rem);font-weight:800;color:var(--ink-1);letter-spacing:-.03em;font-family:var(--font-sans);line-height:1;margin-bottom:.4rem;font-variant-numeric:tabular-nums}
+.stat--accent .stat__num{background-image:var(--grad-text);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:grad-pan var(--grad-pan-dur) var(--ease-breath) infinite alternate}
+.stat__label{color:var(--ink-3);font-size:var(--fs-xs);line-height:1.5;font-weight:500}
+
+/* =============================================================
+   数据源墙（生态标签云）
+   ============================================================= */
+.source-wall{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;max-width:920px;margin:0 auto}
+.source-wall__item{padding:.45rem .85rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:var(--fs-xs);font-weight:600;color:var(--ink-2);transition:all var(--t-fast)}
+.source-wall__item:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(4,120,87,.25)}
+.source-wall__meta{display:flex;align-items:center;gap:1rem;justify-content:center;margin-top:1.5rem;font-size:var(--fs-xs);color:var(--ink-3)}
+.source-wall__meta strong{color:var(--ink-1);font-family:var(--font-mono);font-weight:700}
+.source-wall__meta-divider{width:1px;height:12px;background:var(--divider)}
+
+/* =============================================================
+   模块卡（Bento Grid）
+   ============================================================= */
+.grid{display:grid;gap:1rem}
+.grid--bento{grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(180px,auto)}
+.grid--3{grid-template-columns:repeat(3,1fr)}
+.card{position:relative;display:flex;flex-direction:column;padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl);transition:all var(--t-mid);overflow:hidden;text-decoration:none;color:inherit}
+.card:hover{border-color:var(--line-strong);box-shadow:0 16px 40px -16px rgba(22,22,31,.15);transform:translateY(-2px);color:inherit}
+.card__num{font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--ink-4);font-weight:600;letter-spacing:.04em;margin-bottom:.5rem}
+.card__icon{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:var(--radius-md);background:var(--primary-soft);color:var(--primary);margin-bottom:1rem}
+.card__icon--accent{background:var(--accent-soft);color:var(--accent)}
+.card__title{margin-bottom:.5rem;color:var(--ink-1);font-size:1.125rem}
+.card__text{color:var(--ink-3);font-size:var(--fs-sm);line-height:1.6;margin-bottom:1rem;flex:1}
+.card__meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto}
+.card__meta span{padding:.2rem .55rem;background:var(--surface-sink);color:var(--ink-3);font-size:.7rem;font-weight:600;border-radius:6px}
+.card__arrow{position:absolute;top:1.25rem;right:1.25rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-4);background:var(--surface-sink);transition:all var(--t-mid)}
+.card:hover .card__arrow{color:#fff;background:var(--primary);transform:rotate(-15deg) translate(2px,-2px)}
+
+.card--wide{grid-column:span 2}
+.card--half{grid-column:span 1}
+
+.card__thumb{display:none}
+
+/* 终端风格 mini 预览（替代截图） */
+.preview{padding:1rem;background:var(--surface-sink);border-radius:var(--radius-md);border:1px solid var(--line);font-family:var(--font-mono);font-size:.7rem;line-height:1.6;margin-top:1rem;color:var(--ink-2);overflow:hidden;position:relative}
+.preview__bar{display:flex;gap:.3rem;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+.preview__bar span{width:8px;height:8px;border-radius:50%;background:var(--line-strong)}
+.preview__bar span:nth-child(1){background:#EF4444}
+.preview__bar span:nth-child(2){background:#F59E0B}
+.preview__bar span:nth-child(3){background:#10B981}
+.preview .ok{color:var(--success)}
+.preview .warn{color:var(--warning)}
+.preview .key{color:var(--primary);font-weight:600}
+
+/* =============================================================
+   痛点 → 解法（左右对照列表）
+   ============================================================= */
+.rows{display:grid;gap:.65rem;max-width:980px;margin:0 auto}
+.row{display:grid;grid-template-columns:1fr auto 1.5fr;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);transition:all var(--t-mid)}
+.row:hover{border-color:var(--primary);background:var(--surface)}
+.row__problem{color:var(--ink-3);font-weight:500;font-size:var(--fs-sm)}
+.row__problem::before{content:"✕";color:var(--danger);font-weight:700;margin-right:.5rem}
+.row__arrow{color:var(--ink-4)}
+.row__fix{color:var(--ink-1);font-size:var(--fs-sm);line-height:1.6}
+.row__fix::before{content:"✓";color:var(--success);font-weight:700;margin-right:.5rem}
+
+/* =============================================================
+   Stack 标签条
+   ============================================================= */
+.stack{display:grid;gap:1.25rem;padding:2rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl)}
+.stack__group{display:grid;grid-template-columns:140px 1fr;gap:1.5rem;align-items:start}
+.stack__label{font-size:var(--fs-xs);font-weight:700;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;padding-top:.5rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{padding:.35rem .7rem;background:var(--surface-sink);border:1px solid var(--line);border-radius:999px;font-size:var(--fs-xs);font-weight:600;color:var(--ink-2)}
+.chip:hover{color:var(--primary);border-color:var(--primary)}
+
+/* =============================================================
+   最终 CTA
+   ============================================================= */
+.cta{position:relative;padding:3rem 2.5rem;background:linear-gradient(135deg,rgba(4,120,87,.06),rgba(180,83,9,.04));border:1px solid var(--line);border-radius:var(--radius-2xl);text-align:center;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:-1px;background:var(--grad-spectrum);background-size:200% 200%;opacity:.08;z-index:-1;animation:grad-pan 16s var(--ease-breath) infinite alternate}
+.cta__title{margin-bottom:.75rem;background-image:var(--grad-text);background-size:var(--grad-band-text) 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:grad-pan var(--grad-pan-dur) var(--ease-breath) infinite alternate}
+.cta__text{color:var(--ink-3);font-size:clamp(1rem,.95rem+.2vw,1.0625rem);max-width:55ch;margin:0 auto 1.5rem}
+.cta__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem}
+
+/* =============================================================
+   Footer
+   ============================================================= */
+.footer{padding-block:3rem 2rem;border-top:1px solid var(--line);margin-top:2rem;background:rgba(255,255,255,.5)}
+.footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:2rem;margin-bottom:2rem}
+.footer__brandcol{max-width:340px}
+.footer__brand{display:flex;align-items:center;gap:.5rem;font-weight:800;color:var(--ink-1);font-size:1.05rem;margin-bottom:.75rem}
+.footer__desc{color:var(--ink-3);font-size:var(--fs-sm);line-height:1.6;margin:0}
+.footer__col h3{font-size:var(--fs-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.75rem}
+.footer__col li{margin-bottom:.4rem}
+.footer__col a{color:var(--ink-2);font-size:var(--fs-sm);font-weight:500}
+.footer__col a:hover{color:var(--primary)}
+.footer__soon{color:var(--ink-4);font-size:var(--fs-sm)}
+.footer__soon em{font-style:normal;color:var(--ink-4);font-size:var(--fs-xs);margin-left:.4rem;padding:.1rem .4rem;background:var(--surface-sink);border-radius:4px}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--ink-4);font-size:var(--fs-xs)}
+.footer__clock{font-family:var(--font-mono)}
+
+/* =============================================================
+   响应式
+   ============================================================= */
+@media (max-width:1024px){
+  .nav__links{display:none}
+  .nav__toggle{display:flex}
+  .nav__drawer{display:block;position:absolute;top:60px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);padding:1rem;box-shadow:0 8px 24px -8px rgba(22,22,31,.12);transform:translateY(-12px);opacity:0;pointer-events:none;transition:all var(--t-mid)}
+  .nav__drawer.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav__drawer nav{display:flex;flex-direction:column;gap:.25rem}
+  .hero__inner{grid-template-columns:1fr;gap:2.5rem}
+  .hero__float--tr{right:.5rem}
+  .stats{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+  .stat:nth-child(3){border-left:0}
+  .grid--bento,.grid--3{grid-template-columns:repeat(2,1fr)}
+  .card--wide{grid-column:span 2}
+  .row{grid-template-columns:1fr;gap:.5rem;padding:.85rem 1rem}
+  .row__arrow{display:none}
+  .stack__group{grid-template-columns:1fr;gap:.4rem}
+  .footer__grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .container{padding:0 1rem}
+  .hero{padding-block:3rem 2rem}
+  .grid--bento,.grid--3{grid-template-columns:1fr}
+  .card--wide,.card--half{grid-column:span 1}
+  .stats{grid-template-columns:1fr;padding:1.25rem}
+  .stat{border-left:0;border-top:1px solid var(--line);padding-top:1rem}
+  .stat:first-child{border-top:0;padding-top:0}
+  .footer__grid{grid-template-columns:1fr;gap:1.5rem}
+  .footer__bottom{flex-direction:column;gap:.5rem;text-align:center}
+  .hero__float{display:none}
+  .cta{padding:2rem 1.25rem}
+}
+
+/* 尊重减少动画偏好 */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主内容</a>
+
+<!-- ============================== 导航 ============================== -->
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="#top" aria-label="绿源农鲜 首页">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <defs><linearGradient id="bgrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#047857"/><stop offset=".35" stop-color="#0F766E"/>
+          <stop offset=".65" stop-color="#B45309"/><stop offset="1" stop-color="#9A3412"/>
+        </linearGradient></defs>
+        <rect width="28" height="28" rx="8" fill="url(#bgrad)"/>
+        <path d="M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/>
+      </svg>
+      绿源农鲜
+    </a>
+    <nav class="nav__links" aria-label="主导航">
+      <a class="nav__link" href="#modules" aria-current="page">三大端</a>
+      <a class="nav__link" href="#stats">项目规模</a>
+      <a class="nav__link" href="#why">平台基座</a>
+      <a class="nav__link" href="#stack">技术栈</a>
+      <a class="nav__link" href="#painpoints">解决的问题</a>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        GitHub 仓库
+      </a>
+    </div>
+    <button class="nav__toggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-drawer" id="navToggle">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nav__drawer" id="nav-drawer">
+    <nav aria-label="移动端导航">
+      <a class="nav__link" href="#modules">三大端</a>
+      <a class="nav__link" href="#stats">项目规模</a>
+      <a class="nav__link" href="#why">平台基座</a>
+      <a class="nav__link" href="#stack">技术栈</a>
+      <a class="nav__link" href="#painpoints">解决的问题</a>
+    </nav>
+    <div class="nav__drawer-actions" style="margin-top:1rem">
+      <a class="btn btn--primary btn--block" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">前往 GitHub 仓库</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================== Hero ============================== -->
+<section class="hero" id="top">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="tag">毕业设计 · 三大端完整链路已跑通</span>
+      <h1 class="hero__title">智慧农产品，从田间到指尖</h1>
+      <p class="hero__lead">基于前后端分离架构的农产品电商系统，覆盖用户选购 / 商家运营 / 管理员治理三种角色，从下单到售后全链路贯通。</p>
+      <ul class="hero__principles">
+        <li><span><strong>用户端</strong> 选购、下单、支付、物流、收藏、优惠券一站式购齐</span><span class="hero__principle-meta">13 个页面</span></li>
+        <li><span><strong>商家端</strong> 商品发布、订单管理、库存调整，独立工作台</span><span class="hero__principle-meta">4 个页面</span></li>
+        <li><span><strong>管理端</strong> 数据统计、审核、系统监控、运营报表一屏掌控</span><span class="hero__principle-meta">25 个页面</span></li>
+        <li><span><strong>JWT + RBAC</strong> 无状态认证 + 细粒度权限，按角色路由守卫</span><span class="hero__principle-meta">三级解析</span></li>
+      </ul>
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+          跳转到 GitHub
+        </a>
+        <a class="btn btn--secondary btn--lg" href="#modules">查看三大端</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <div class="window">
+        <div class="window__bar">
+          <span class="window__dot"></span><span class="window__dot"></span><span class="window__dot"></span>
+          <span class="window__addr">lyuxian.com/products</span>
+        </div>
+        <div class="window__body">
+          <div class="mock-product">
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--1"></div>
+              <div class="mock-title">高山有机番茄 5kg</div>
+              <div class="mock-meta"><span class="mock-price">¥39.9</span><span class="mock-tag">热销</span></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--2"></div>
+              <div class="mock-title">现摘蜜薯 2.5kg</div>
+              <div class="mock-meta"><span class="mock-price">¥19.8</span><span class="mock-tag">新品</span></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--3"></div>
+              <div class="mock-title">云南小台芒 10 粒</div>
+              <div class="mock-meta"><span class="mock-price">¥29.9</span><span class="mock-tag">包邮</span></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--4"></div>
+              <div class="mock-title">烟台红富士 5kg</div>
+              <div class="mock-meta"><span class="mock-price">¥49.9</span><span class="mock-tag">直发</span></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--5"></div>
+              <div class="mock-title">土鸡蛋 30 枚装</div>
+              <div class="mock-meta"><span class="mock-price">¥35.0</span><span class="mock-tag">农家</span></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-thumb mock-thumb--6"></div>
+              <div class="mock-title">高山龙井 100g</div>
+              <div class="mock-meta"><span class="mock-price">¥68.0</span><span class="mock-tag">明前</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__float hero__float--tl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        今日订单 · 23 笔
+      </div>
+      <div class="hero__float hero__float--tr">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        已售 1,287 件
+      </div>
+      <div class="hero__float hero__float--br">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        22 张表 · 0 报错
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== Stats 数据带 ============================== -->
+<section class="section section--lg" id="stats">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">项目规模</span>
+      <h2 class="section__title">用真实工程数据说话</h2>
+      <p class="section__lead">以下指标全部来自当前代码库，可追溯、可复核。</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat">
+        <div class="stat__num">19</div>
+        <div class="stat__label">个 REST 控制器 · 覆盖全业务链路</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">22</div>
+        <div class="stat__label">张数据库表 · 完整业务建模</div>
+      </div>
+      <div class="stat stat--accent">
+        <div class="stat__num">42</div>
+        <div class="stat__label">个 Vue 单文件组件 · 含三端视图</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">38</div>
+        <div class="stat__label">个 Java 实体 · MyBatis-Plus 映射</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">3</div>
+        <div class="stat__label">种角色 · 用户 / 商家 / 管理员</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 生态标签云 ============================== -->
+<section class="section section--subtle" id="ecosystem">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <span class="section__eyebrow">业务模块</span>
+      <h2 class="section__title">一套后端，撑起完整电商链路</h2>
+      <p class="section__lead">商品 · 订单 · 购物车 · 收藏 · 优惠券 · 售后 · 物流 · 新闻 · 审核 · 监控，13 大模块按角色装配。</p>
+    </div>
+    <div class="source-wall reveal">
+      <span class="source-wall__item">商品中心</span>
+      <span class="source-wall__item">订单交易</span>
+      <span class="source-wall__item">购物车</span>
+      <span class="source-wall__item">地址簿</span>
+      <span class="source-wall__item">收藏夹</span>
+      <span class="source-wall__item">优惠券</span>
+      <span class="source-wall__item">售后服务</span>
+      <span class="source-wall__item">物流追踪</span>
+      <span class="source-wall__item">新闻公告</span>
+      <span class="source-wall__item">用户体系</span>
+      <span class="source-wall__item">商家入驻</span>
+      <span class="source-wall__item">登录历史</span>
+      <span class="source-wall__item">系统日志</span>
+      <span class="source-wall__item">文件上传</span>
+      <span class="source-wall__item">商品评价</span>
+      <span class="source-wall__item">数据备份</span>
+      <span class="source-wall__item">服务器监控</span>
+      <span class="source-wall__item">数据统计</span>
+      <span class="source-wall__item">报表中心</span>
+    </div>
+    <div class="source-wall__meta">
+      <span class="source-wall__meta-item"><strong>13</strong> 大业务模块</span>
+      <span class="source-wall__meta-divider"></span>
+      <span class="source-wall__meta-item"><strong>3</strong> 套前端视图</span>
+      <span class="source-wall__meta-divider"></span>
+      <span class="source-wall__meta-item">JWT · RBAC · 全局异常统一响应</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 三大端 Bento Grid ============================== -->
+<section class="section" id="modules">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">三大端</span>
+      <h2 class="section__title">一个后端，三套体验</h2>
+      <p class="section__lead">不同角色登录后自动路由到各自的工作台，路由守卫按权限动态装配菜单。</p>
+    </div>
+    <div class="grid grid--bento">
+
+      <a class="card card--wide reveal" href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front" target="_blank" rel="noopener">
+        <span class="card__arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+        <div class="card__num">PORTAL · 01</div>
+        <div class="card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        </div>
+        <h3 class="card__title">用户端 · 完整购买链路</h3>
+        <p class="card__text">商品浏览 → 详情查看 → 加入购物车 → 结算下单 → 物流跟踪 → 申请售后。13 个 Vue 页面 + ECharts 报表 + WangEditor 富文本评论。</p>
+        <div class="preview" aria-hidden="true">
+          <div class="preview__bar"><span></span><span></span><span></span></div>
+          <span class="key">POST</span> /order/create <span class="ok">→ 200 OK</span> <span class="warn">[14ms]</span><br>
+          <span class="key">GET</span>  /delivery/track/2025 <span class="ok">→ 已签收 ✓</span><br>
+          <span class="key">PATCH</span> /cart/select <span class="ok">→ 3 项已选</span><br>
+          <span class="key">POST</span> /coupon/redeem/<span class="warn">FRESH20</span>
+        </div>
+        <div class="card__meta" style="margin-top:1rem">
+          <span>13 个页面</span><span>ECharts 报表</span><span>WangEditor</span><span>移动适配</span>
+        </div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front/merchant" target="_blank" rel="noopener">
+        <span class="card__arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+        <div class="card__num">PORTAL · 02</div>
+        <div class="card__icon card__icon--accent">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="card__title">商家端 · 商家工作台</h3>
+        <p class="card__text">商品发布、订单管理、独立数据看板。从入驻到运营闭环。</p>
+        <div class="card__meta" style="margin-top:1rem">
+          <span>商品发布</span><span>订单管理</span><span>独立看板</span>
+        </div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/manager" target="_blank" rel="noopener">
+        <span class="card__arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+        <div class="card__num">PORTAL · 03</div>
+        <div class="card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="card__title">管理端 · 运营治理</h3>
+        <p class="card__text">商品审核、数据统计、服务器监控、系统日志、报表中心。25 个页面全维度。</p>
+        <div class="card__meta" style="margin-top:1rem">
+          <span>商品审核</span><span>系统监控</span><span>报表中心</span>
+        </div>
+      </a>
+
+      <a class="card card--half reveal" href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/controller" target="_blank" rel="noopener">
+        <span class="card__arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+        <div class="card__num">BACKEND · 04</div>
+        <div class="card__icon card__icon--accent">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="card__title">后端 · 19 控制器</h3>
+        <p class="card__text">Spring Boot 2.7 + MyBatis-Plus 3.5，分页插件 + 逻辑删除中间件，全局统一响应。</p>
+        <div class="card__meta" style="margin-top:1rem">
+          <span>Spring Boot</span><span>MyBatis-Plus</span><span>Knife4j</span>
+        </div>
+      </a>
+
+      <a class="card card--half reveal" href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src" target="_blank" rel="noopener">
+        <span class="card__arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+        <div class="card__num">FRONTEND · 05</div>
+        <div class="card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <h3 class="card__title">前端 · Vue 2 全家桶</h3>
+        <p class="card__text">Vue 2.6 + Vue Router 3 + Element UI 2.15 + Axios + ECharts，按角色动态菜单。</p>
+        <div class="card__meta" style="margin-top:1rem">
+          <span>Vue 2</span><span>Element UI</span><span>路由守卫</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 平台基座 ============================== -->
+<section class="section section--subtle section--lg" id="why">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">为什么这样设计</span>
+      <h2 class="section__title">三件难而正确的事</h2>
+    </div>
+    <div class="grid grid--3">
+      <article class="card reveal">
+        <div class="card__num">01 — 安全</div>
+        <div class="card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3 class="card__title">认证 + 权限一体化</h3>
+        <p class="card__text">JWT 无状态认证 + BCrypt 密码加密 + Spring Security 细粒度 RBAC + 路由守卫按角色动态装配菜单。</p>
+      </article>
+      <article class="card reveal">
+        <div class="card__num">02 — 工程</div>
+        <div class="card__icon card__icon--accent">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="card__title">前后端分离 + 统一响应</h3>
+        <p class="card__text">Vue CLI 代理 + 后端 CORS + Result&lt;T&gt; 统一封装 + GlobalExceptionHandler 全局兜底，Swagger/Knife4j 接口文档。</p>
+      </article>
+      <article class="card reveal">
+        <div class="card__num">03 — 可观测</div>
+        <div class="card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+        </div>
+        <h3 class="card__title">日志 + 监控 + 报表</h3>
+        <p class="card__text">系统日志、操作日志、登录历史、服务器状态、性能监控、ECharts 报表中心，问题有迹可循。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 技术栈 ============================== -->
+<section class="section" id="stack">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">技术栈</span>
+      <h2 class="section__title">主流且稳定，不追新</h2>
+      <p class="section__lead">前后端分离经典组合，每一个选型都对应可验证的工程理由。</p>
+    </div>
+    <div class="stack reveal">
+      <div class="stack__group">
+        <div class="stack__label">前端框架</div>
+        <div class="tags">
+          <span class="chip">Vue 2.6.14</span>
+          <span class="chip">Vue Router 3.5</span>
+          <span class="chip">Element UI 2.15</span>
+          <span class="chip">Vue CLI</span>
+          <span class="chip">Composition API</span>
+        </div>
+      </div>
+      <div class="stack__group">
+        <div class="stack__label">前端工具</div>
+        <div class="tags">
+          <span class="chip">Axios 1.5</span>
+          <span class="chip">ECharts 5.4</span>
+          <span class="chip">WangEditor 4.7</span>
+          <span class="chip">vue-cli-plugin</span>
+          <span class="chip">Sass</span>
+        </div>
+      </div>
+      <div class="stack__group">
+        <div class="stack__label">后端框架</div>
+        <div class="tags">
+          <span class="chip">Spring Boot 2.7.18</span>
+          <span class="chip">MyBatis-Plus 3.5.3</span>
+          <span class="chip">JWT 0.9.1 (jjwt)</span>
+          <span class="chip">Spring Security</span>
+          <span class="chip">Knife4j 2.0.9</span>
+        </div>
+      </div>
+      <div class="stack__group">
+        <div class="stack__label">存储 / 基建</div>
+        <div class="tags">
+          <span class="chip">MySQL 8.0</span>
+          <span class="chip">Redis（缓存）</span>
+          <span class="chip">Hutool 5.8</span>
+          <span class="chip">BCrypt</span>
+          <span class="chip">CORS</span>
+        </div>
+      </div>
+      <div class="stack__group">
+        <div class="stack__label">工程实践</div>
+        <div class="tags">
+          <span class="chip">Result&lt;T&gt; 统一响应</span>
+          <span class="chip">全局异常兜底</span>
+          <span class="chip">逻辑删除中间件</span>
+          <span class="chip">分页插件</span>
+          <span class="chip">操作日志切面</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 痛点 → 解法 ============================== -->
+<section class="section section--subtle section--lg" id="painpoints">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">解决的问题</span>
+      <h2 class="section__title">把混乱，收拢成一个系统</h2>
+      <p class="section__lead">不靠"智能推荐"，靠把所有业务环节串成一个完整的可运行系统。</p>
+    </div>
+    <div class="rows">
+      <div class="row reveal">
+        <div class="row__problem">传统电商只有用户端，商家运营杂乱</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">三端独立工作台，按角色路由守卫自动装配菜单</div>
+      </div>
+      <div class="row reveal">
+        <div class="row__problem">权限管理粗放，前端按钮写死</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">JWT + RBAC 细粒度权限，前后端双校验</div>
+      </div>
+      <div class="row reveal">
+        <div class="row__problem">异常处理散落各处</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">GlobalExceptionHandler 全局兜底 + Result&lt;T&gt; 统一响应格式</div>
+      </div>
+      <div class="row reveal">
+        <div class="row__problem">农产品需要物流可视化</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">物流追踪 + DeliveryTracking 实体记录每一节点</div>
+      </div>
+      <div class="row reveal">
+        <div class="row__problem">运营数据没有可视化</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">ECharts 报表中心 + 服务器状态实时监控</div>
+      </div>
+      <div class="row reveal">
+        <div class="row__problem">商品审核流程缺失</div>
+        <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="row__fix">待审核商品专区 + 商家入驻审核流，运营治理闭环</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 最终 CTA ============================== -->
+<section class="section section--lg" id="cta">
+  <div class="container">
+    <div class="cta reveal">
+      <h2 class="cta__title">把电商链路，交给一套真工程</h2>
+      <p class="cta__text">19 个控制器、22 张表、三端完整业务，全部代码已开源。点开仓库，看它跑起来的样子。</p>
+      <div class="cta__actions">
+        <a class="btn btn--primary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+          跳转到 GitHub 仓库
+        </a>
+        <a class="btn btn--secondary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce#readme" target="_blank" rel="noopener">查看 README</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== Footer ============================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brandcol">
+        <div class="footer__brand">
+          <svg width="22" height="22" viewBox="0 0 28 28" aria-hidden="true">
+            <defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#047857"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs>
+            <rect width="28" height="28" rx="8" fill="url(#fg)"/>
+            <path d="M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/>
+          </svg>
+          绿源农鲜
+        </div>
+        <p class="footer__desc">一套完整的前后端分离农产品电商系统，用户/商家/管理员三端协同，覆盖商品浏览、订单交易、售后服务、运营治理完整链路。</p>
+      </div>
+      <div class="footer__col">
+        <h3>三大端</h3>
+        <ul>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front" target="_blank" rel="noopener">用户端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front/merchant" target="_blank" rel="noopener">商家端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/manager" target="_blank" rel="noopener">管理端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/Login.vue" target="_blank" rel="noopener">登录页</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3>后端模块</h3>
+        <ul>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/controller" target="_blank" rel="noopener">控制器</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/entity" target="_blank" rel="noopener">数据实体</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/service" target="_blank" rel="noopener">业务服务</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/backend/sql/agricultural_ecommerce.sql" target="_blank" rel="noopener">SQL 初始化</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3>关于</h3>
+        <ul>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">GitHub 仓库</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/README.md" target="_blank" rel="noopener">README</a></li>
+          <li><span class="footer__soon">在线 Demo<em>暂无</em></span></li>
+          <li><span class="footer__soon">部署文档<em>整理中</em></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 绿源农鲜 · Built with Vue 2 + Spring Boot · 毕业设计开源项目</span>
+      <span class="footer__clock" aria-hidden="true">UTC+8 <span id="clock">00:00:00</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- 滚动揭示 ----
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target);} });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+
+// ---- 移动端抽屉 ----
+(function(){
+  const btn=document.getElementById('navToggle');
+  const drawer=document.getElementById('nav-drawer');
+  if(!btn||!drawer) return;
+  btn.addEventListener('click',()=>{
+    const open=drawer.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    drawer.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+  }));
+})();
+
+// ---- 时钟 ----
+(function(){
+  const c=document.getElementById('clock');
+  if(!c) return;
+  const tick=()=>{
+    const d=new Date();
+    c.textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':');
+  };
+  tick();setInterval(tick,1000);
+})();
+
+// ---- 平滑滚动锚点 ----
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id.length<2) return;
+    const t=document.querySelector(id);
+    if(!t) return;
+    e.preventDefault();
+    window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-60,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
