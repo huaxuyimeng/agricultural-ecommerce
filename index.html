@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>绿源农鲜 · 农产品直供平台 | Vue 2 + Spring Boot 全栈实践</title>
+<meta name="description" content="绿源农鲜——基于 Vue 2 + Spring Boot 的农产品直供电商平台，覆盖用户端 / 商家端 / 管理端，集成 JWT、RBAC、ECharts、WarmFlow。" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23047857'/%3E%3Cpath d='M16 8c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- ====== NAV (shared markup; site.js wires current page) ====== -->
+<header class="nav" id="topnav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="绿源农鲜">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#047857"/><stop offset=".4" stop-color="#0F766E"/><stop offset=".7" stop-color="#B45309"/><stop offset="1" stop-color="#9A3412"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg)"/><path d="M16 8c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/></svg>
+      绿源农鲜
+    </a>
+
+    <nav class="nav__links" aria-label="主导航">
+      <a class="nav__link" href="index.html" aria-current="page">总览</a>
+      <a class="nav__link" href="architecture.html">系统架构</a>
+      <a class="nav__link" href="user.html">用户端</a>
+      <a class="nav__link" href="admin.html">管理端</a>
+      <a class="nav__link" href="merchant.html">商家端</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        GitHub
+      </a>
+      <button class="nav__burger" aria-label="菜单" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <div class="nav__panel">
+      <a class="nav__link" href="index.html" aria-current="page">总览</a>
+      <a class="nav__link" href="architecture.html">系统架构</a>
+      <a class="nav__link" href="user.html">用户端</a>
+      <a class="nav__link" href="admin.html">管理端</a>
+      <a class="nav__link" href="merchant.html">商家端</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Vue 2 · Spring Boot · 农产品电商</span>
+      <h1>从田间到餐桌的<br>全链路数字化平台</h1>
+      <p class="hero__lead">绿源农鲜是一个完整的 B2C 农产品电商系统：消费者下单、商家运营、平台治理三端协同。Vue 2 + Element UI 前端，Spring Boot + MyBatis-Plus 后端，MySQL + Redis 数据层，集成 JWT、RBAC、ECharts、WarmFlow 等生产级实践。</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="user.html">
+          探索产品
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+          查看源码
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== STATS ====== -->
+<section class="container">
+  <div class="stats reveal">
+    <div class="stat"><div class="stat__num"><span>3</span></div><div class="stat__label">客户端（用户 / 商家 / 管理）</div></div>
+    <div class="stat"><div class="stat__num"><span>50+</span></div><div class="stat__label">核心业务页面</div></div>
+    <div class="stat"><div class="stat__num"><span>40+</span></div><div class="stat__label">REST 接口</div></div>
+    <div class="stat"><div class="stat__num"><span>1.7<span style="font-size:1.5rem">MB</span></span></div><div class="stat__label">前端 bundle（gzipped）</div></div>
+  </div>
+</section>
+
+<!-- ====== THREE CLIENTS PREVIEW ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">三个客户端 · 一个系统</span>
+      <h2 class="section-title">不同角色，专属体验</h2>
+      <p class="section-lead">Vue Router 多入口路由 + Spring Security RBAC 权限模型，每个端拥有独立的页面、组件和接口，避免角色耦合。</p>
+    </div>
+
+    <div class="shot-grid shot-grid--3">
+      <a class="shot-card reveal" data-shot="assets/shots/u01_home.jpg" data-delay="1" href="user.html">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/u01_home.jpg" alt="用户端首页" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">用户端 · 选购下单</h3>
+          <p class="shot-card__desc">Banner + 分类 + 商品瀑布流 + 优惠券 + 收藏夹 + 个人中心。</p>
+          <div class="shot-card__tags">
+            <span class="shot-card__tag">USER</span>
+            <span class="shot-card__tag">Shopping</span>
+            <span class="shot-card__tag">9 张截图</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="shot-card reveal" data-shot="assets/shots/m02_product.jpg" data-delay="2" href="merchant.html">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/m02_product.jpg" alt="商家端商品管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">商家端 · 商品运营</h3>
+          <p class="shot-card__desc">商品上架 / 上下架 / 库存 / 订单履约 / 数据看板。</p>
+          <div class="shot-card__tags">
+            <span class="shot-card__tag">MERCHANT</span>
+            <span class="shot-card__tag">Publish</span>
+            <span class="shot-card__tag">4 张截图</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="shot-card reveal" data-shot="assets/shots/a01_dashboard.jpg" data-delay="3" href="admin.html">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a01_dashboard.jpg" alt="管理端数据看板" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">管理端 · 平台治理</h3>
+          <p class="shot-card__desc">数据看板 · 商品审核 · 用户 / 商家管理 · 报表 · 系统监控。</p>
+          <div class="shot-card__tags">
+            <span class="shot-card__tag">ADMIN</span>
+            <span class="shot-card__tag">ECharts</span>
+            <span class="shot-card__tag">12 张截图</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FEATURES ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">工程亮点</span>
+      <h2 class="section-title">从架构到细节的工程实践</h2>
+      <p class="section-lead">不是「能跑就行」的 Demo，而是按生产标准构建的真实系统。</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature reveal" data-delay="1">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"/></svg>
+        </div>
+        <h3 class="feature__title">JWT + BCrypt 安全</h3>
+        <p class="feature__text">JJWT 签发 Token，Spring Security 拦截器验证；密码 BCrypt 单向哈希，登录态自动升级。</p>
+      </div>
+      <div class="feature reveal" data-delay="2">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        </div>
+        <h3 class="feature__title">RBAC 权限模型</h3>
+        <p class="feature__text">USER / MERCHANT / ADMIN 三角色，路由守卫 + 菜单权限 + 接口鉴权三层防护。</p>
+      </div>
+      <div class="feature reveal" data-delay="3">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h7M14 14h7"/></svg>
+        </div>
+        <h3 class="feature__title">可视化数据看板</h3>
+        <p class="feature__text">ECharts 5 实时渲染销售、订单、用户、商品、库存 5 大维度数据。</p>
+      </div>
+      <div class="feature reveal" data-delay="4">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3 class="feature__title">商品审核工作流</h3>
+        <p class="feature__text">WarmFlow 状态机：商家提交 → 管理员审核 → 通过 / 驳回，全程留痕可追溯。</p>
+      </div>
+      <div class="feature reveal" data-delay="1">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+        </div>
+        <h3 class="feature__title">MyBatis-Plus 高效 ORM</h3>
+        <p class="feature__text">Lambda 表达式 + 分页插件 + 逻辑删除 + 自动填充，业务代码量减半。</p>
+      </div>
+      <div class="feature reveal" data-delay="2">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="feature__title">Knife4j 接口文档</h3>
+        <p class="feature__text">自动生成 OpenAPI 3 文档，所有接口在线调试，告别 Postman。</p>
+      </div>
+      <div class="feature reveal" data-delay="3">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <h3 class="feature__title">运维监控</h3>
+        <p class="feature__text">服务器状态、性能监控、数据备份、日志审计、登录历史全链路可观测。</p>
+      </div>
+      <div class="feature reveal" data-delay="4">
+        <div class="feature__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <h3 class="feature__title">代码组织清晰</h3>
+        <p class="feature__text">前后端分离 + 模块分层 + 统一响应 Result + 全局异常处理 + CORS 配置。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TECH STACK ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">技术栈</span>
+      <h2 class="section-title">用经典组合做扎实工程</h2>
+    </div>
+    <div class="flow reveal">
+      <span class="chip chip--solid">Vue 2.6</span>
+      <span class="chip">Vue Router 3</span>
+      <span class="chip">Element UI 2.15</span>
+      <span class="chip">Axios</span>
+      <span class="chip">ECharts 5</span>
+      <span class="chip">WangEditor</span>
+      <span class="chip chip--solid">Spring Boot 2.7</span>
+      <span class="chip">MyBatis-Plus 3.5</span>
+      <span class="chip">Spring Security</span>
+      <span class="chip">JWT (jjwt)</span>
+      <span class="chip">MySQL 8.0</span>
+      <span class="chip">Redis</span>
+      <span class="chip">Hutool</span>
+      <span class="chip">Knife4j</span>
+      <span class="chip">WarmFlow</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>绿源农鲜 · 课程设计 · 2024-2025</div>
+    <div class="footer__links">
+      <a href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">GitHub</a>
+      <a href="architecture.html">架构</a>
+      <a href="user.html">用户端</a>
+      <a href="admin.html">管理端</a>
+      <a href="merchant.html">商家端</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
