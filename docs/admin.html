@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理端 · 绿源农鲜</title>
+<meta name="description" content="绿源农鲜管理端：数据看板、商品审核、用户 / 商家管理、报表中心、系统监控。" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23047857'/%3E%3Cpath d='M16 8c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .role-badge--admin { background: #FEF3C7; color: #B45309; }
+  .shot-card--admin .shot-card__step { color: #B45309; }
+  .shot-card--admin .shot-card__step::before { background: #B45309; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="index.html">
+      <svg width="32" height="32" viewBox="0 0 32 32"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#047857"/><stop offset=".4" stop-color="#0F766E"/><stop offset=".7" stop-color="#B45309"/><stop offset="1" stop-color="#9A3412"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg)"/><path d="M16 8c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/></svg>
+      绿源农鲜
+    </a>
+    <nav class="nav__links" aria-label="主导航">
+      <a class="nav__link" href="index.html">总览</a>
+      <a class="nav__link" href="architecture.html">系统架构</a>
+      <a class="nav__link" href="user.html">用户端</a>
+      <a class="nav__link" href="admin.html" aria-current="page">管理端</a>
+      <a class="nav__link" href="merchant.html">商家端</a>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        GitHub
+      </a>
+      <button class="nav__burger" aria-label="菜单" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <div class="nav__panel">
+      <a class="nav__link" href="index.html">总览</a>
+      <a class="nav__link" href="architecture.html">系统架构</a>
+      <a class="nav__link" href="user.html">用户端</a>
+      <a class="nav__link" href="admin.html" aria-current="page">管理端</a>
+      <a class="nav__link" href="merchant.html">商家端</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow role-badge role-badge--admin">ADMIN · 平台管理员</span>
+      <h1 style="margin-top:.5rem">运营治理，<br>全链路可视化</h1>
+      <p class="hero__lead">12 张真实截图：数据统计 → 商品 / 用户 / 商家管理 → 审核工作流 → 报表 → 公告 / 日志 → 系统监控 / 备份。覆盖管理后台 100% 核心场景。</p>
+      <div class="flow">
+        <span class="chip chip--solid" style="background:#FEF3C7;border-color:rgba(180,83,9,.18);color:#B45309;">数据统计</span>
+        <span class="chip">商品审核</span>
+        <span class="chip">用户管理</span>
+        <span class="chip">商家管理</span>
+        <span class="chip">报表中心</span>
+        <span class="chip">公告</span>
+        <span class="chip">日志</span>
+        <span class="chip">系统设置</span>
+        <span class="chip">数据备份</span>
+        <span class="chip">服务器监控</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section" style="padding-top:1rem;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">数据中心</span>
+      <h2 class="section-title">一眼看全局</h2>
+    </div>
+
+    <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a01_dashboard.jpg">
+      <div class="shot-card__media" style="aspect-ratio: 16/9;">
+        <img class="shot-card__img" src="assets/shots/a01_dashboard.jpg" alt="数据统计看板" loading="lazy">
+      </div>
+      <div class="shot-card__body">
+        <h3 class="shot-card__title">数据统计看板</h3>
+        <p class="shot-card__desc">11 个 KPI 卡片 + 销售趋势线图 + 用户分布饼图 + 商品销量 Top5 + 实时订单流。ECharts 5 实时渲染。</p>
+        <div class="shot-card__tags">
+          <span class="shot-card__tag">/statistics</span>
+          <span class="shot-card__tag">ECharts</span>
+          <span class="shot-card__tag">real-time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE BUSINESS -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">业务管理</span>
+      <h2 class="section-title">四类核心实体，一个体系</h2>
+    </div>
+
+    <div class="shot-grid shot-grid--2">
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a02_user.jpg" data-delay="1">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a02_user.jpg" alt="用户管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">用户管理</h3>
+          <p class="shot-card__desc">用户列表、状态切换、登录历史追溯、详情弹窗编辑。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/user</span></div>
+        </div>
+      </div>
+
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a05_merchant.jpg" data-delay="2">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a05_merchant.jpg" alt="商家管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">商家管理</h3>
+          <p class="shot-card__desc">商家资质审核、店铺信息维护、营业状态管控、违规下架。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/merchant</span></div>
+        </div>
+      </div>
+
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a03_product.jpg" data-delay="1">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a03_product.jpg" alt="商品管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">商品管理</h3>
+          <p class="shot-card__desc">商品上下架、价格调整、库存预警、批量操作。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/products</span></div>
+        </div>
+      </div>
+
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a06_orders.jpg" data-delay="2">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a06_orders.jpg" alt="订单中心" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">订单中心</h3>
+          <p class="shot-card__desc">全平台订单检索、状态干预、退款仲裁、物流跟踪。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/user-center</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT FLOW -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">审核工作流</span>
+      <h2 class="section-title">WarmFlow 状态机</h2>
+      <p class="section-lead">商家提交 → 待审核 → 管理员审核 → 通过 / 驳回 → 全程留痕。</p>
+    </div>
+    <div class="shot-grid shot-grid--2">
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a04_review.jpg" data-delay="1">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a04_review.jpg" alt="待审核商品" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <span class="shot-card__step">Step 01</span>
+          <h3 class="shot-card__title">待审核商品列表</h3>
+          <p class="shot-card__desc">商家提交的待审商品池，支持按提交时间 / 商家筛选。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/pending-products</span></div>
+        </div>
+      </div>
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a08_news.jpg" data-delay="2">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a08_news.jpg" alt="公告管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <span class="shot-card__step">Step 02</span>
+          <h3 class="shot-card__title">公告 / 资讯发布</h3>
+          <p class="shot-card__desc">WangEditor 富文本编辑器，支持图片上传、置顶、撤回。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/notice</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTS & DATA -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">报表中心</span>
+      <h2 class="section-title">经营数据沉淀</h2>
+    </div>
+    <div class="shot-grid shot-grid--2">
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a07_reports.jpg" data-delay="1">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a07_reports.jpg" alt="报表中心" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">报表中心</h3>
+          <p class="shot-card__desc">按日 / 周 / 月聚合的销售、订单、退款、客单价报表，支持导出 Excel。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/reports</span></div>
+        </div>
+      </div>
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a09_log.jpg" data-delay="2">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a09_log.jpg" alt="日志管理" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">日志管理</h3>
+          <p class="shot-card__desc">操作日志 + 登录日志 + 异常日志，支持按用户 / 时间 / 类型检索。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/log-manage</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">系统运维</span>
+      <h2 class="section-title">设置、监控、备份</h2>
+    </div>
+    <div class="shot-grid shot-grid--3">
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a10_settings.jpg" data-delay="1">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a10_settings.jpg" alt="系统设置" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">系统设置</h3>
+          <p class="shot-card__desc">站点信息、轮播图、客服配置、运营开关。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/settings</span></div>
+        </div>
+      </div>
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a11_backup.jpg" data-delay="2">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a11_backup.jpg" alt="数据备份" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">数据备份</h3>
+          <p class="shot-card__desc">一键备份 / 还原 MySQL，记录每次操作的备份文件。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/data-backup</span></div>
+        </div>
+      </div>
+      <div class="shot-card shot-card--admin reveal" data-shot="assets/shots/a12_monitor.jpg" data-delay="3">
+        <div class="shot-card__media">
+          <img class="shot-card__img" src="assets/shots/a12_monitor.jpg" alt="服务器状态" loading="lazy">
+        </div>
+        <div class="shot-card__body">
+          <h3 class="shot-card__title">服务器状态</h3>
+          <p class="shot-card__desc">实时 CPU / 内存 / 磁盘 / JVM 指标，5 秒刷新。</p>
+          <div class="shot-card__tags"><span class="shot-card__tag">/server-status</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>绿源农鲜 · 管理端 · 12 张真实截图</div>
+    <div class="footer__links">
+      <a href="user.html">← 用户端</a>
+      <a href="merchant.html">商家端 →</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
