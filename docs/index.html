@@ -1,14 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>缁挎簮鍐滈矞 路 鏅烘収鍐滀骇鍝佺數鍟嗗钩鍙?/title>
-<meta name="description" content="鐙珛浠庨浂寮€鍙戠殑 B2C 鍐滀骇鍝佺數鍟嗗叏鏍堥」鐩紝鐢ㄦ埛鍓嶅彴璐墿涓庡晢瀹跺悗鍙扮鐞嗐€俈ue 2 + Spring Boot 2 + MyBatis-Plus + JWT锛屽墠鍚庣鍒嗙鏋舵瀯銆?>
+<title>绿源农鲜 · 智慧农产品电商平台</title>
+<meta name="description" content="独立从零开发的 B2C 农产品电商全栈项目，用户前台购物与商家后台管理。Vue 2 + Spring Boot 2 + MyBatis-Plus + JWT，前后端分离架构。">
 <meta name="theme-color" content="#FCFCFD">
-<meta property="og:title" content="缁挎簮鍐滈矞 路 鏅烘収鍐滀骇鍝佺數鍟嗗钩鍙?>
-<meta property="og:description" content="B2C 鍐滀骇鍝佺數鍟?路 19 鎺у埗鍣?路 22 寮犳暟鎹〃 路 涓夌瀹屾暣涓氬姟閾捐矾 路 Vibe Coding 浠庨浂鎼缓銆?>
+<meta property="og:title" content="绿源农鲜 · 智慧农产品电商平台">
+<meta property="og:description" content="B2C 农产品电商 · 19 控制器 · 22 张数据表 · 三端完整业务链路 · Vibe Coding 从零搭建。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='8' fill='%23047857'/%3E%3Cpath d='M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z' fill='white'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =============================================================
-   缁挎簮鍐滈矞 路 钀藉湴椤?v2
-   2026-09-17 路 鐪熷疄鎴浘 + 姝ｇ‘鏂囨
+   绿源农鲜 · 落地页 v3
+   2026-09-17 · 真实截图 + 正确文案
    ============================================================= */
 
 :root{
@@ -160,7 +159,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__cta{display:flex;flex-wrap:wrap;gap:.75rem}
 .hero__media{position:relative;min-width:0}
 
-/* 鐪熷疄鎴浘绐楀彛 */
+/* 真实截图窗口 */
 .window{background:var(--surface);border-radius:var(--radius-xl);border:1px solid var(--line-strong);box-shadow:0 30px 60px -20px rgba(22,22,31,.18),0 0 0 1px rgba(255,255,255,.6) inset;overflow:hidden}
 .window__bar{display:flex;align-items:center;gap:.4rem;padding:.65rem 1rem;background:linear-gradient(180deg,#FAFAF7,#F3F3F0);border-bottom:1px solid var(--line)}
 .window__dot{width:11px;height:11px;border-radius:50%}
@@ -226,7 +225,7 @@ ul{margin:0;padding:0;list-style:none}
 .card--half{grid-column:span 1}
 .card__thumb{border-radius:var(--radius-md);border:1px solid var(--line);overflow:hidden;max-height:180px;object-fit:cover;width:100%;margin-top:.75rem}
 
-/* =================== SHOT (鐪熷疄鎴浘) =================== */
+/* =================== SHOT (真实截图) =================== */
 .shot{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;transition:all var(--t-mid)}
 .shot:hover{box-shadow:0 12px 32px -12px rgba(22,22,31,.15);transform:translateY(-2px)}
 .shot__bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .85rem;background:linear-gradient(180deg,#FAFAF7,#F3F3F0);border-bottom:1px solid var(--line)}
@@ -254,10 +253,10 @@ ul{margin:0;padding:0;list-style:none}
 .row{display:grid;grid-template-columns:1fr auto 1.5fr;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);transition:all var(--t-mid)}
 .row:hover{border-color:var(--primary)}
 .row__problem{color:var(--ink-3);font-weight:500;font-size:var(--fs-sm)}
-.row__problem::before{content:"鉁?;color:var(--danger);font-weight:700;margin-right:.5rem}
+.row__problem::before{content:"✕";color:var(--danger);font-weight:700;margin-right:.5rem}
 .row__arrow{color:var(--ink-4)}
 .row__fix{color:var(--ink-1);font-size:var(--fs-sm);line-height:1.6}
-.row__fix::before{content:"鉁?;color:var(--success);font-weight:700;margin-right:.5rem}
+.row__fix::before{content:"✓";color:var(--success);font-weight:700;margin-right:.5rem}
 
 /* =================== CTA =================== */
 .cta{position:relative;padding:3rem 2.5rem;background:linear-gradient(135deg,rgba(4,120,87,.06),rgba(180,83,9,.04));border:1px solid var(--line);border-radius:var(--radius-2xl);text-align:center;overflow:hidden}
@@ -302,43 +301,43 @@ ul{margin:0;padding:0;list-style:none}
 </head>
 <body>
 
-<a class="skip-link" href="#main">璺冲埌涓诲唴瀹?/a>
+<a class="skip-link" href="#main">跳到主内容</a>
 
-<!-- ============================== 瀵艰埅 ============================== -->
+<!-- ============================== 导航 ============================== -->
 <header class="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="#top" aria-label="缁挎簮鍐滈矞 棣栭〉">
+    <a class="nav__brand" href="#top" aria-label="绿源农鲜 首页">
       <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><defs><linearGradient id="bgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#047857"/><stop offset=".35" stop-color="#0F766E"/><stop offset=".65" stop-color="#B45309"/><stop offset="1" stop-color="#9A3412"/></linearGradient></defs><rect width="28" height="28" rx="8" fill="url(#bgrad)"/><path d="M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/></svg>
-      缁挎簮鍐滈矞
+      绿源农鲜
     </a>
-    <nav class="nav__links" aria-label="涓诲鑸?>
-      <a class="nav__link" href="#modules" aria-current="page">涓夊ぇ绔?/a>
-      <a class="nav__link" href="#stats">涓汉鑱岃矗</a>
-      <a class="nav__link" href="#why">鏍稿績闅剧偣</a>
-      <a class="nav__link" href="#shots">鐪熷疄鎴浘</a>
-      <a class="nav__link" href="#stack">鎶€鏈爤</a>
-      <a class="nav__link" href="#painpoints">鏍稿績浜偣</a>
+    <nav class="nav__links" aria-label="主导航">
+      <a class="nav__link" href="#modules" aria-current="page">三大端</a>
+      <a class="nav__link" href="#stats">个人职责</a>
+      <a class="nav__link" href="#why">核心难点</a>
+      <a class="nav__link" href="#shots">真实截图</a>
+      <a class="nav__link" href="#stack">技术栈</a>
+      <a class="nav__link" href="#painpoints">核心亮点</a>
     </nav>
     <div class="nav__actions">
       <a class="btn btn--primary btn--sm" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-        GitHub 浠撳簱
+        GitHub 仓库
       </a>
     </div>
-    <button class="nav__toggle" aria-label="鎵撳紑瀵艰埅鑿滃崟" aria-expanded="false" id="navToggle">
+    <button class="nav__toggle" aria-label="打开导航菜单" aria-expanded="false" id="navToggle">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
   <div class="nav__drawer" id="nav-drawer">
-    <nav aria-label="绉诲姩绔鑸?>
-      <a class="nav__link" href="#modules">涓夊ぇ绔?/a>
-      <a class="nav__link" href="#stats">涓汉鑱岃矗</a>
-      <a class="nav__link" href="#why">鏍稿績闅剧偣</a>
-      <a class="nav__link" href="#shots">鐪熷疄鎴浘</a>
-      <a class="nav__link" href="#stack">鎶€鏈爤</a>
-      <a class="nav__link" href="#painpoints">鏍稿績浜偣</a>
+    <nav aria-label="移动端导航">
+      <a class="nav__link" href="#modules">三大端</a>
+      <a class="nav__link" href="#stats">个人职责</a>
+      <a class="nav__link" href="#why">核心难点</a>
+      <a class="nav__link" href="#shots">真实截图</a>
+      <a class="nav__link" href="#stack">技术栈</a>
+      <a class="nav__link" href="#painpoints">核心亮点</a>
     </nav>
-    <div style="margin-top:1rem"><a class="btn btn--primary btn--block" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">鍓嶅線 GitHub 浠撳簱</a></div>
+    <div style="margin-top:1rem"><a class="btn btn--primary btn--block" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">前往 GitHub 仓库</a></div>
   </div>
 </header>
 
@@ -348,21 +347,21 @@ ul{margin:0;padding:0;list-style:none}
 <section class="hero" id="top">
   <div class="container hero__inner">
     <div class="hero__copy">
-      <span class="tag">B2C 鍐滀骇鍝佺數鍟?路 Vibe Coding 浠庨浂鎼缓</span>
-      <h1 class="hero__title">鏅烘収鍐滀骇鍝侊紝浠庣敯闂村埌鎸囧皷</h1>
-      <p class="hero__lead">鐙珛浠庨浂寮€鍙戠殑 B2C 鍐滀骇鍝佺數鍟嗗叏鏍堥」鐩紝鐢ㄦ埛璐墿涓庡晢瀹惰繍钀ワ紝瀹屾暣澶嶅埢涓绘祦鐢靛晢鏍稿績涓氬姟娴佺▼涓庤瑙夋晥鏋溿€?/p>
+      <span class="tag">B2C 农产品电商 · Vibe Coding 从零搭建</span>
+      <h1 class="hero__title">智慧农产品，从田间到指尖</h1>
+      <p class="hero__lead">独立从零开发的 B2C 农产品电商全栈项目，用户购物与商家运营，完整复刻主流电商核心业务流程与视觉效果。</p>
       <ul class="hero__principles">
-        <li><span><strong>鐢ㄦ埛绔?/strong> 鍟嗗搧閫夎喘銆佷笅鍗曟敮浠樸€佺墿娴佽窡韪€佹敹钘忎紭鎯狅紝涓€绔欏紡璐綈</span><span class="hero__principle-meta">13 涓〉闈?/span></li>
-        <li><span><strong>鍟嗗绔?/strong> 鍟嗗搧鍙戝竷銆佽鍗曞鐞嗐€佸簱瀛樼鐞嗭紝鐙珛杩愯惀宸ヤ綔鍙?/span><span class="hero__principle-meta">4 涓〉闈?/span></li>
-        <li><span><strong>绠＄悊绔?/strong> 鐢ㄦ埛瀹℃牳銆佸晢鍝佸悎瑙勩€佽繍钀ユ暟鎹€佺郴缁熺洃鎺э紝娌荤悊鍏ㄨ鐩?/span><span class="hero__principle-meta">25 涓〉闈?/span></li>
-        <li><span><strong>Token 鏃犵棝鍒锋柊</strong> 鑷姩缁湡鏈哄埗锛屽墠绔潤榛樹繚娲伙紝鐧诲綍鐘舵€佷笉涓柇</span><span class="hero__principle-meta">鏃犳劅缁湡</span></li>
+        <li><span><strong>用户端</strong> 商品选购、下单支付、物流跟踪、收藏优惠，一站式购齐</span><span class="hero__principle-meta">13 个页面</span></li>
+        <li><span><strong>商家端</strong> 商品发布、订单处理、库存管理，独立运营工作台</span><span class="hero__principle-meta">4 个页面</span></li>
+        <li><span><strong>管理端</strong> 用户审核、商品合规、运营数据、系统监控，治理全覆盖</span><span class="hero__principle-meta">25 个页面</span></li>
+        <li><span><strong>Token 无痛刷新</strong> 自动续期机制，前端静默保活，登录状态不中断</span><span class="hero__principle-meta">无感续期</span></li>
       </ul>
       <div class="hero__cta">
         <a class="btn btn--primary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-          璺宠浆 GitHub 浠撳簱
+          跳转 GitHub 仓库
         </a>
-        <a class="btn btn--secondary btn--lg" href="#shots">鏌ョ湅鐪熷疄鎴浘</a>
+        <a class="btn btn--secondary btn--lg" href="#shots">查看真实截图</a>
       </div>
     </div>
     <div class="hero__media">
@@ -372,114 +371,115 @@ ul{margin:0;padding:0;list-style:none}
           <span class="window__addr">localhost:8081/#/login</span>
         </div>
         <div class="window__body window__body--flush">
-          <img class="window__img" src="assets/login.jpg" alt="缁挎簮鍐滈矞鐧诲綍椤垫埅鍥撅細宸︿晶鎻掔敾 + 鍙充晶鐧诲綍琛ㄥ崟锛屽惈鐢ㄦ埛鍚嶃€佸瘑鐮併€佽鑹查€夋嫨" width="1440" height="900" />
+          <img class="window__img" src="assets/login.jpg" alt="绿源农鲜登录页截图：左侧插画 + 右侧登录表单，含用户名、密码、角色选择" width="1440" height="900" />
         </div>
       </div>
       <div class="hero__float hero__float--tl">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        Element UI 缁勪欢搴?      </div>
+        Element UI 组件库
+      </div>
       <div class="hero__float hero__float--tr">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        Vue Router 瀹堝崼
+        Vue Router 守卫
       </div>
       <div class="hero__float hero__float--br">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        JWT Token 閴存潈
+        JWT Token 鉴权
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== 涓汉鑱岃矗 ============================== -->
+<!-- ============================== 个人职责 ============================== -->
 <section class="section section--lg" id="stats">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__eyebrow">涓汉鑱岃矗</span>
-      <h2 class="section__title">鐙珛璐熻矗鍏ㄦ爤鏍稿績妯″潡寮€鍙?/h2>
-      <p class="section__lead">鍓嶇鏋舵瀯涓庢牳蹇冨姛鑳藉疄鐜帮紝鍚庣鎺ュ彛璁捐涓庝笟鍔￠€昏緫寮€鍙戙€?/p>
+      <span class="section__eyebrow">个人职责</span>
+      <h2 class="section__title">独立负责全栈核心模块开发</h2>
+      <p class="section__lead">前端架构与核心功能实现，后端接口设计与业务逻辑开发。</p>
     </div>
     <div class="stats reveal">
       <div class="stat">
         <div class="stat__num">19</div>
-        <div class="stat__label">涓?REST 鎺у埗鍣?路 瑕嗙洊鍏ㄤ笟鍔￠摼璺?/div>
+        <div class="stat__label">个 REST 控制器 · 覆盖全业务链路</div>
       </div>
       <div class="stat">
         <div class="stat__num">22</div>
-        <div class="stat__label">寮犳暟鎹簱琛?路 瀹屾暣涓氬姟寤烘ā</div>
+        <div class="stat__label">张数据库表 · 完整业务建模</div>
       </div>
       <div class="stat stat--accent">
         <div class="stat__num">42</div>
-        <div class="stat__label">涓?Vue 鍗曟枃浠剁粍浠?路 鍚笁绔鍥?/div>
+        <div class="stat__label">个 Vue 单文件组件 · 含三端视图</div>
       </div>
       <div class="stat">
         <div class="stat__num">38</div>
-        <div class="stat__label">涓?Java 瀹炰綋 路 MyBatis-Plus 鏄犲皠</div>
+        <div class="stat__label">个 Java 实体 · MyBatis-Plus 映射</div>
       </div>
       <div class="stat">
         <div class="stat__num">3</div>
-        <div class="stat__label">绉嶈鑹?路 鐢ㄦ埛 / 鍟嗗 / 绠＄悊鍛?/div>
+        <div class="stat__label">种角色 · 用户 / 商家 / 管理员</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== 涓氬姟妯″潡 ============================== -->
+<!-- ============================== 业务模块 ============================== -->
 <section class="section section--subtle" id="ecosystem">
   <div class="container">
     <div class="section__head section__head--center reveal">
-      <span class="section__eyebrow">涓氬姟妯″潡</span>
-      <h2 class="section__title">涓€濂楀悗绔紝鎾戣捣瀹屾暣鐢靛晢閾捐矾</h2>
-      <p class="section__lead">鍟嗗搧 路 璁㈠崟 路 璐墿杞?路 鏀惰棌 路 浼樻儬鍒?路 鍞悗 路 鐗╂祦 路 鏂伴椈 路 瀹℃牳 路 鐩戞帶锛?3 澶фā鍧楁寜瑙掕壊瑁呴厤銆?/p>
+      <span class="section__eyebrow">业务模块</span>
+      <h2 class="section__title">一套后端，撑起完整电商链路</h2>
+      <p class="section__lead">商品 · 订单 · 购物车 · 收藏 · 优惠券 · 售后 · 物流 · 新闻 · 审核 · 监控，13 大模块按角色装配。</p>
     </div>
     <div class="source-wall reveal">
-      <span class="source-wall__item">鍟嗗搧涓績</span>
-      <span class="source-wall__item">璁㈠崟浜ゆ槗</span>
-      <span class="source-wall__item">璐墿杞?/span>
-      <span class="source-wall__item">鍦板潃绨?/span>
-      <span class="source-wall__item">鏀惰棌澶?/span>
-      <span class="source-wall__item">浼樻儬鍒?/span>
-      <span class="source-wall__item">鍞悗鏈嶅姟</span>
-      <span class="source-wall__item">鐗╂祦杩借釜</span>
-      <span class="source-wall__item">鏂伴椈鍏憡</span>
-      <span class="source-wall__item">鐢ㄦ埛浣撶郴</span>
-      <span class="source-wall__item">鍟嗗鍏ラ┗</span>
-      <span class="source-wall__item">鐧诲綍鍘嗗彶</span>
-      <span class="source-wall__item">绯荤粺鏃ュ織</span>
-      <span class="source-wall__item">鏂囦欢涓婁紶</span>
-      <span class="source-wall__item">鍟嗗搧璇勪环</span>
-      <span class="source-wall__item">鏁版嵁澶囦唤</span>
-      <span class="source-wall__item">鏈嶅姟鍣ㄧ洃鎺?/span>
-      <span class="source-wall__item">鏁版嵁缁熻</span>
-      <span class="source-wall__item">鎶ヨ〃涓績</span>
+      <span class="source-wall__item">商品中心</span>
+      <span class="source-wall__item">订单交易</span>
+      <span class="source-wall__item">购物车</span>
+      <span class="source-wall__item">地址簿</span>
+      <span class="source-wall__item">收藏夹</span>
+      <span class="source-wall__item">优惠券</span>
+      <span class="source-wall__item">售后服务</span>
+      <span class="source-wall__item">物流追踪</span>
+      <span class="source-wall__item">新闻公告</span>
+      <span class="source-wall__item">用户体系</span>
+      <span class="source-wall__item">商家入驻</span>
+      <span class="source-wall__item">登录历史</span>
+      <span class="source-wall__item">系统日志</span>
+      <span class="source-wall__item">文件上传</span>
+      <span class="source-wall__item">商品评价</span>
+      <span class="source-wall__item">数据备份</span>
+      <span class="source-wall__item">服务器监控</span>
+      <span class="source-wall__item">数据统计</span>
+      <span class="source-wall__item">报表中心</span>
     </div>
     <div class="source-wall__meta reveal">
-      <span class="source-wall__meta-item"><strong>13</strong> 澶т笟鍔℃ā鍧?/span>
+      <span class="source-wall__meta-item"><strong>13</strong> 大业务模块</span>
       <span class="source-wall__meta-divider"></span>
-      <span class="source-wall__meta-item"><strong>3</strong> 濂楀墠绔鍥?/span>
+      <span class="source-wall__meta-item"><strong>3</strong> 套前端视图</span>
       <span class="source-wall__meta-divider"></span>
-      <span class="source-wall__meta-item">JWT 路 RBAC 路 鍏ㄥ眬寮傚父缁熶竴鍝嶅簲</span>
+      <span class="source-wall__meta-item">JWT · RBAC · 全局异常统一响应</span>
     </div>
   </div>
 </section>
 
-<!-- ============================== 涓夊ぇ绔埅鍥?============================== -->
+<!-- ============================== 三大端截图 ============================== -->
 <section class="section" id="modules">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__eyebrow">鐪熷疄鎴浘</span>
-      <h2 class="section__title">涓€涓悗绔紝涓夊浣撻獙</h2>
-      <p class="section__lead">涓嶅悓瑙掕壊鐧诲綍鍚庤嚜鍔ㄨ矾鐢卞埌鍚勮嚜鐨勫伐浣滃彴锛岃矾鐢卞畧鍗寜鏉冮檺鍔ㄦ€佽閰嶈彍鍗曘€?/p>
+      <span class="section__eyebrow">真实截图</span>
+      <h2 class="section__title">一个后端，三套体验</h2>
+      <p class="section__lead">不同角色登录后自动路由到各自的工作台，路由守卫按权限动态装配菜单。</p>
     </div>
 
-    <!-- 鐧诲綍 + 绠＄悊绔埅鍥?-->
+    <!-- 登录 + 管理端截图 -->
     <div class="grid grid--2" style="margin-bottom:1rem">
       <figure class="shot reveal">
         <div class="shot__bar"><span></span><span></span><span></span><span class="shot__url">localhost:8081/#/login</span></div>
-        <img class="shot__img" src="assets/login.jpg" alt="鐧诲綍椤垫埅鍥撅細宸︿晶鍐滀骇鍝佹彃鐢?+ 鍙充晶鐧诲綍琛ㄥ崟锛屽惈鐢ㄦ埛鍚嶃€佸瘑鐮併€佽鑹查€夋嫨" width="1440" height="900" loading="lazy" />
+        <img class="shot__img" src="assets/login.jpg" alt="登录页截图：左侧农产品插画 + 右侧登录表单，含用户名、密码、角色选择" width="1440" height="900" loading="lazy" />
         <div class="shot__body">
           <div>
-            <div class="shot__title">鐧诲綍椤?路 鐢ㄦ埛/鍟嗗/绠＄悊鍛樹笁瑙掕壊</div>
-            <div class="shot__desc">JWT 鏃犵姸鎬佽璇?路 BCrypt 瀵嗙爜鍔犲瘑 路 璺敱瀹堝崼鑷姩璺宠浆</div>
+            <div class="shot__title">登录页 · 用户/商家/管理员三角色</div>
+            <div class="shot__desc">JWT 无状态认证 · BCrypt 密码加密 · 路由守卫自动跳转</div>
           </div>
           <span class="shot__tag">/login</span>
         </div>
@@ -487,11 +487,11 @@ ul{margin:0;padding:0;list-style:none}
 
       <figure class="shot reveal">
         <div class="shot__bar"><span></span><span></span><span></span><span class="shot__url">localhost:8081/home</span></div>
-        <img class="shot__img" src="assets/admin.jpg" alt="绠＄悊绔椤垫埅鍥撅細椤堕儴瀵艰埅 + 宸︿晶鑿滃崟 + 4 涓粺璁″崱鐗?+ ECharts 鏁版嵁鍥捐〃 + 寰呭姙浜嬮」" width="1440" height="900" loading="lazy" />
+        <img class="shot__img" src="assets/admin.jpg" alt="管理端首页截图：顶部导航 + 左侧菜单 + 4 个统计卡片 + ECharts 数据图表 + 待办事项" width="1440" height="900" loading="lazy" />
         <div class="shot__body">
           <div>
-            <div class="shot__title">绠＄悊绔椤?路 杩愯惀鏁版嵁鎬昏</div>
-            <div class="shot__desc">鐢ㄦ埛/璁㈠崟/钀ユ敹/鎶曡瘔缁熻 路 ECharts 瓒嬪娍鍥?路 寰呭姙浜嬮」鍒楄〃</div>
+            <div class="shot__title">管理端首页 · 运营数据总览</div>
+            <div class="shot__desc">用户/订单/营收/投诉统计 · ECharts 趋势图 · 待办事项列表</div>
           </div>
           <span class="shot__tag">/home</span>
         </div>
@@ -501,11 +501,11 @@ ul{margin:0;padding:0;list-style:none}
     <div class="grid grid--3">
       <figure class="shot reveal">
         <div class="shot__bar"><span></span><span></span><span></span><span class="shot__url">localhost:8081/statistics</span></div>
-        <img class="shot__img" src="assets/admin-stats.png" alt="鏁版嵁缁熻椤垫埅鍥撅細澶氱淮搴?ECharts 楗煎浘 + 鎶樼嚎鍥?+ 瀹炴椂鏁版嵁" width="1440" height="900" loading="lazy" />
+        <img class="shot__img" src="assets/admin-stats.jpg" alt="数据统计页截图：多维度 ECharts 饼图 + 折线图 + 实时数据" width="1440" height="900" loading="lazy" />
         <div class="shot__body">
           <div>
-            <div class="shot__title">鏁版嵁缁熻 路 澶氱淮鍙鍖?/div>
-            <div class="shot__desc">ECharts 楗煎浘 + 鎶樼嚎鍥?路 瀹炴椂鏁版嵁鑱氬悎</div>
+            <div class="shot__title">数据统计 · 多维可视化</div>
+            <div class="shot__desc">ECharts 饼图 + 折线图 · 实时数据聚合</div>
           </div>
           <span class="shot__tag">/statistics</span>
         </div>
@@ -513,11 +513,11 @@ ul{margin:0;padding:0;list-style:none}
 
       <figure class="shot reveal">
         <div class="shot__bar"><span></span><span></span><span></span><span class="shot__url">localhost:8081/products</span></div>
-        <img class="shot__img" src="assets/admin-products.png" alt="鍟嗗搧绠＄悊椤垫埅鍥撅細琛ㄦ牸 + 绛涢€夊伐鍏锋爮 + 鍒嗛〉 + 鎿嶄綔鎸夐挳" width="1440" height="900" loading="lazy" />
+        <img class="shot__img" src="assets/admin-products.jpg" alt="商品管理页截图：表格 + 筛选工具栏 + 分页 + 操作按钮" width="1440" height="900" loading="lazy" />
         <div class="shot__body">
           <div>
-            <div class="shot__title">鍟嗗搧绠＄悊 路 鍒楄〃涓庡鏍?/div>
-            <div class="shot__desc">鍒嗛〉琛ㄦ牸 路 鐘舵€佺瓫閫?路 鎵归噺鎿嶄綔</div>
+            <div class="shot__title">商品管理 · 列表与审核</div>
+            <div class="shot__desc">分页表格 · 状态筛选 · 批量操作</div>
           </div>
           <span class="shot__tag">/products</span>
         </div>
@@ -525,11 +525,11 @@ ul{margin:0;padding:0;list-style:none}
 
       <figure class="shot reveal">
         <div class="shot__bar"><span></span><span></span><span></span><span class="shot__url">localhost:8081/#/register</span></div>
-        <img class="shot__img" src="assets/register.jpg" alt="娉ㄥ唽椤垫埅鍥撅細鐢ㄦ埛娉ㄥ唽琛ㄥ崟锛屽惈鐢ㄦ埛鍚嶃€佸瘑鐮併€佽鑹查€夋嫨" width="1440" height="900" loading="lazy" />
+        <img class="shot__img" src="assets/register.jpg" alt="注册页截图：用户注册表单，含用户名、密码、角色选择" width="1440" height="900" loading="lazy" />
         <div class="shot__body">
           <div>
-            <div class="shot__title">娉ㄥ唽椤?路 涓夎鑹插叆椹?/div>
-            <div class="shot__desc">鐢ㄦ埛 / 鍟嗗 / 绠＄悊鍛樹笁绉嶈鑹叉敞鍐屾祦绋?/div>
+            <div class="shot__title">注册页 · 三角色入驻</div>
+            <div class="shot__desc">用户 / 商家 / 管理员三种角色注册流程</div>
           </div>
           <span class="shot__tag">/register</span>
         </div>
@@ -537,108 +537,107 @@ ul{margin:0;padding:0;list-style:none}
     </div>
   </div>
 </section>
-
-<!-- ============================== 鏍稿績闅剧偣 ============================== -->
+<!-- ============================== 核心难点 ============================== -->
 <section class="section section--subtle section--lg" id="why">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__eyebrow">鏍稿績闅剧偣</span>
-      <h2 class="section__title">寮€鍙戣繃绋嬩腑鐨勫叧閿寫鎴?/h2>
+      <span class="section__eyebrow">核心难点</span>
+      <h2 class="section__title">开发过程中的关键挑战</h2>
     </div>
     <div class="grid grid--3">
       <article class="card reveal">
-        <div class="card__num">01 鈥?鏋舵瀯</div>
+        <div class="card__num">01 — 架构</div>
         <div class="card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3 class="card__title">鍓嶅悗绔垎绂绘灦鏋?/h3>
-        <p class="card__text">Vue CLI 浠ｇ悊璺ㄥ煙銆丄xios 缁熶竴灏佽璇锋眰銆乂ue Router 璺敱瀹堝崼銆丣WT Token 鏃犵棝鍒锋柊锛屽墠绔潤榛樹繚娲汇€?/p>
+        <h3 class="card__title">前后端分离架构</h3>
+        <p class="card__text">Vue CLI 代理跨域、Axios 统一封装请求、Vue Router 路由守卫、JWT Token 无痛刷新，前端静默保活。</p>
       </article>
       <article class="card reveal">
-        <div class="card__num">02 鈥?鏍稿績鍔熻兘</div>
+        <div class="card__num">02 — 核心功能</div>
         <div class="card__icon card__icon--accent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3 class="card__title">SKU 瑙勬牸鑱斿姩涓庡簱瀛樻牎楠?/h3>
-        <p class="card__text">澶氳鏍煎晢鍝佸睘鎬ц仈鍔ㄣ€佸疄鏃跺簱瀛樻墸鍑忔牎楠岋紝璐墿杞︽湰鍦扮紦瀛樹笌鎸佷箙鍖栧悓姝ワ紝璁㈠崟鐘舵€佹満娴佽浆銆?/p>
+        <h3 class="card__title">SKU 规格联动与库存校验</h3>
+        <p class="card__text">多规格商品属性联动、实时库存扣减校验，购物车本地缓存与持久化同步，订单状态机流转。</p>
       </article>
       <article class="card reveal">
-        <div class="card__num">03 鈥?宸ョ▼鍖?/div>
+        <div class="card__num">03 — 工程化</div>
         <div class="card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
-        <h3 class="card__title">缁熶竴鍝嶅簲涓庡叏灞€寮傚父澶勭悊</h3>
-        <p class="card__text">Result&lt;T&gt; 缁熶竴灏佽 + GlobalExceptionHandler 鍏ㄥ眬鍏滃簳锛孧yBatis-Plus 鍒嗛〉鎻掍欢 + 閫昏緫鍒犻櫎涓棿浠躲€?/p>
+        <h3 class="card__title">统一响应与全局异常处理</h3>
+        <p class="card__text">Result&lt;T&gt; 统一封装 + GlobalExceptionHandler 全局兜底，MyBatis-Plus 分页插件 + 逻辑删除中间件。</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============================== 鎶€鏈爤 ============================== -->
+<!-- ============================== 技术栈 ============================== -->
 <section class="section" id="stack">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__eyebrow">鎶€鏈爤</span>
-      <h2 class="section__title">Vue 2 + Spring Boot 2 缁忓吀缁勫悎</h2>
-      <p class="section__lead">鍓嶅悗绔垎绂诲伐绋嬪疄璺碉紝涓绘祦绋冲畾涓嶈繃搴﹁拷鏂般€?/p>
+      <span class="section__eyebrow">技术栈</span>
+      <h2 class="section__title">Vue 2 + Spring Boot 2 经典组合</h2>
+      <p class="section__lead">前后端分离工程实践，主流稳定不过度追新。</p>
     </div>
     <div class="stack reveal">
       <div class="stack__group">
-        <div class="stack__label">鍓嶇妗嗘灦</div>
+        <div class="stack__label">前端框架</div>
         <div class="tags"><span class="chip">Vue 2.6.14</span><span class="chip">Vue Router 3.5</span><span class="chip">Element UI 2.15</span><span class="chip">Vue CLI</span><span class="chip">Composition API</span></div>
       </div>
       <div class="stack__group">
-        <div class="stack__label">鍓嶇宸ュ叿</div>
+        <div class="stack__label">前端工具</div>
         <div class="tags"><span class="chip">Axios 1.5</span><span class="chip">ECharts 5.4</span><span class="chip">WangEditor 4.7</span><span class="chip">vue-cli-plugin</span><span class="chip">Sass</span></div>
       </div>
       <div class="stack__group">
-        <div class="stack__label">鍚庣妗嗘灦</div>
+        <div class="stack__label">后端框架</div>
         <div class="tags"><span class="chip">Spring Boot 2.7.18</span><span class="chip">MyBatis-Plus 3.5.3</span><span class="chip">JWT 0.9.1</span><span class="chip">Spring Security</span><span class="chip">Knife4j 2.0.9</span></div>
       </div>
       <div class="stack__group">
-        <div class="stack__label">瀛樺偍 / 鍩哄缓</div>
-        <div class="tags"><span class="chip">MySQL 8.0</span><span class="chip">Redis锛堢紦瀛橈級</span><span class="chip">Hutool 5.8</span><span class="chip">BCrypt</span><span class="chip">CORS</span></div>
+        <div class="stack__label">存储 / 基建</div>
+        <div class="tags"><span class="chip">MySQL 8.0</span><span class="chip">Redis（缓存）</span><span class="chip">Hutool 5.8</span><span class="chip">BCrypt</span><span class="chip">CORS</span></div>
       </div>
       <div class="stack__group">
-        <div class="stack__label">宸ョ▼瀹炶返</div>
-        <div class="tags"><span class="chip">Result&lt;T&gt; 缁熶竴鍝嶅簲</span><span class="chip">鍏ㄥ眬寮傚父鍏滃簳</span><span class="chip">閫昏緫鍒犻櫎涓棿浠?/span><span class="chip">鍒嗛〉鎻掍欢</span><span class="chip">鎿嶄綔鏃ュ織鍒囬潰</span></div>
+        <div class="stack__label">工程实践</div>
+        <div class="tags"><span class="chip">Result&lt;T&gt; 统一响应</span><span class="chip">全局异常兜底</span><span class="chip">逻辑删除中间件</span><span class="chip">分页插件</span><span class="chip">操作日志切面</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== 鏍稿績浜偣 ============================== -->
+<!-- ============================== 核心亮点 ============================== -->
 <section class="section section--subtle section--lg" id="painpoints">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__eyebrow">鏍稿績浜偣</span>
-      <h2 class="section__title">鐙珛瀹炵幇鐨勫叧閿姛鑳?/h2>
-      <p class="section__lead">姣忎釜妯″潡閮界粡杩囦粠璁捐鍒拌惤鍦扮殑瀹屾暣瀹炶返锛岃鐩栫數鍟嗘牳蹇冨満鏅€?/p>
+      <span class="section__eyebrow">核心亮点</span>
+      <h2 class="section__title">独立实现的关键功能</h2>
+      <p class="section__lead">每个模块都经过从设计到落地的完整实践，覆盖电商核心场景。</p>
     </div>
     <div class="rows">
       <div class="row reveal">
-        <div class="row__problem">涓夌瑙掕壊鏉冮檺闅旂涓庤矾鐢卞畧鍗?/div>
+        <div class="row__problem">三端角色权限隔离与路由守卫</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">鍓嶇璺敱瀹堝崼 + 鍚庣鎷︽埅鍣紝Token 闈欓粯鍒锋柊淇濇椿锛岃彍鍗曟寜瑙掕壊鍔ㄦ€佽閰?/div>
+        <div class="row__fix">前端路由守卫 + 后端拦截器，Token 静默刷新保活，菜单按角色动态装配</div>
       </div>
       <div class="row reveal">
-        <div class="row__problem">SKU 澶氳鏍艰仈鍔ㄤ笌瀹炴椂搴撳瓨鎵ｅ噺</div>
+        <div class="row__problem">SKU 多规格联动与实时库存扣减</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">灞炴€ц鏍艰仈鍔ㄨ绠椼€佸簱瀛樹竴鑷存€ф牎楠屻€佽喘鐗╄溅鏈湴缂撳瓨涓庢寔涔呭寲鍚屾</div>
+        <div class="row__fix">属性规格联动计算、库存一致性校验、购物车本地缓存与持久化同步</div>
       </div>
       <div class="row reveal">
-        <div class="row__problem">璁㈠崟鐘舵€佹満娴佽浆涓庡€掕鏃舵満鍒?/div>
+        <div class="row__problem">订单状态机流转与倒计时机制</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">璁㈠崟鐘舵€佹満瑙勮寖娴佽浆銆佹敮浠樺€掕鏃惰嚜鍔ㄥ彇娑堛€丒Charts 鏁版嵁鍙鍖栧疄鏃跺憟鐜?/div>
+        <div class="row__fix">订单状态机规范流转、支付倒计时自动取消、ECharts 数据可视化实时呈现</div>
       </div>
       <div class="row reveal">
-        <div class="row__problem">鍓嶅悗绔垎绂绘帴鍙ｈ仈璋冧笌璺ㄥ煙澶勭悊</div>
+        <div class="row__problem">前后端分离接口联调与跨域处理</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">Vue CLI 浠ｇ悊 + CORS 閰嶇疆 + Axios 缁熶竴璇锋眰灏佽 + Swagger 鎺ュ彛鏂囨。鑱旇皟</div>
+        <div class="row__fix">Vue CLI 代理 + CORS 配置 + Axios 统一请求封装 + Swagger 接口文档联调</div>
       </div>
       <div class="row reveal">
-        <div class="row__problem">ECharts 鎶ヨ〃涓庢暟鎹彲瑙嗗寲</div>
+        <div class="row__problem">ECharts 报表与数据可视化</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">绠＄悊绔泦鎴?ECharts 澶氱淮搴︽暟鎹粺璁°€佹湇鍔″櫒鐘舵€佺洃鎺с€佹暟鎹浠戒笌鎭㈠</div>
+        <div class="row__fix">管理端集成 ECharts 多维度数据统计、服务器状态监控、数据备份与恢复</div>
       </div>
       <div class="row reveal">
-        <div class="row__problem">鍟嗗搧瀹℃牳涓庡晢瀹跺叆椹诲悎瑙勭鐞?/div>
+        <div class="row__problem">商品审核与商家入驻合规管理</div>
         <div class="row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-        <div class="row__fix">鍟嗗鍏ラ┗瀹℃牳銆佸緟涓婃灦鍟嗗搧瀹℃牳娴併€佸晢鍝佷笅鏋朵笌杩濊澶勭悊锛屽叏閾捐矾鍚堣</div>
+        <div class="row__fix">商家入驻审核、待上架商品审核流、商品下架与违规处理，全链路合规</div>
       </div>
     </div>
   </div>
@@ -648,14 +647,14 @@ ul{margin:0;padding:0;list-style:none}
 <section class="section section--lg" id="cta">
   <div class="container">
     <div class="cta reveal">
-      <h2 class="cta__title">B2C 鍐滀骇鍝佺數鍟嗗叏鏍堥」鐩?/h2>
-      <p class="cta__text">19 涓帶鍒跺櫒銆?2 寮犺〃銆佷笁绔畬鏁翠笟鍔￠摼璺紝Vue 2 + Spring Boot 2 鍓嶅悗绔垎绂绘灦鏋勶紝浠ｇ爜鍏ㄩ儴寮€婧愩€?/p>
+      <h2 class="cta__title">B2C 农产品电商全栈项目</h2>
+      <p class="cta__text">19 个控制器、22 张表、三端完整业务链路，Vue 2 + Spring Boot 2 前后端分离架构，代码全部开源。</p>
       <div class="cta__actions">
         <a class="btn btn--primary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-          璺宠浆 GitHub 浠撳簱
+          跳转 GitHub 仓库
         </a>
-        <a class="btn btn--secondary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/README.md" target="_blank" rel="noopener">鏌ョ湅 README</a>
+        <a class="btn btn--secondary btn--lg" href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/README.md" target="_blank" rel="noopener">查看 README</a>
       </div>
     </div>
   </div>
@@ -670,40 +669,40 @@ ul{margin:0;padding:0;list-style:none}
       <div class="footer__brandcol">
         <div class="footer__brand">
           <svg width="22" height="22" viewBox="0 0 28 28" aria-hidden="true"><defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#047857"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><rect width="28" height="28" rx="8" fill="url(#fg)"/><path d="M14 7c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5zm0 8c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/></svg>
-          缁挎簮鍐滈矞
+          绿源农鲜
         </div>
-        <p class="footer__desc">B2C 鍐滀骇鍝佺數鍟嗗叏鏍堥」鐩紝鐢ㄦ埛璐墿銆佸晢瀹惰繍钀ャ€佺鐞嗘不鐞嗕笁绔崗鍚岋紝鐙珛浠庨浂寮€鍙戠殑宸ョ▼瀹炶返銆?/p>
+        <p class="footer__desc">B2C 农产品电商全栈项目，用户购物、商家运营、管理治理三端协同，独立从零开发的工程实践。</p>
       </div>
       <div class="footer__col">
-        <h3>涓夊ぇ绔?/h3>
+        <h3>三大端</h3>
         <ul>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front" target="_blank" rel="noopener">鐢ㄦ埛绔?/a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front/merchant" target="_blank" rel="noopener">鍟嗗绔?/a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/manager" target="_blank" rel="noopener">绠＄悊绔?/a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/src/views/Login.vue" target="_blank" rel="noopener">鐧诲綍椤?/a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front" target="_blank" rel="noopener">用户端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/front/merchant" target="_blank" rel="noopener">商家端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/src/views/manager" target="_blank" rel="noopener">管理端</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/src/views/Login.vue" target="_blank" rel="noopener">登录页</a></li>
         </ul>
       </div>
       <div class="footer__col">
-        <h3>鍚庣妯″潡</h3>
+        <h3>后端模块</h3>
         <ul>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/controller" target="_blank" rel="noopener">鎺у埗鍣?/a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/entity" target="_blank" rel="noopener">鏁版嵁瀹炰綋</a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/service" target="_blank" rel="noopener">涓氬姟鏈嶅姟</a></li>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/backend/sql/agricultural_ecommerce.sql" target="_blank" rel="noopener">SQL 鍒濆鍖?/a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/controller" target="_blank" rel="noopener">控制器</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/entity" target="_blank" rel="noopener">数据实体</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/tree/main/backend/src/main/java/com/example/vuehouduan/service" target="_blank" rel="noopener">业务服务</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/backend/sql/agricultural_ecommerce.sql" target="_blank" rel="noopener">SQL 初始化</a></li>
         </ul>
       </div>
       <div class="footer__col">
-        <h3>鍏充簬</h3>
+        <h3>关于</h3>
         <ul>
-          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">GitHub 浠撳簱</a></li>
+          <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce" target="_blank" rel="noopener">GitHub 仓库</a></li>
           <li><a href="https://github.com/huaxuyimeng/agricultural-ecommerce/blob/main/README.md" target="_blank" rel="noopener">README</a></li>
-          <li><span class="footer__soon" style="color:var(--ink-4);font-size:var(--fs-sm)">鍦ㄧ嚎 Demo<em style="font-style:normal;color:var(--ink-4);font-size:var(--fs-xs);margin-left:.4rem;padding:.1rem .4rem;background:var(--surface-sink);border-radius:4px">鏆傛棤</em></span></li>
-          <li><span class="footer__soon" style="color:var(--ink-4);font-size:var(--fs-sm)">閮ㄧ讲鏂囨。<em style="font-style:normal;color:var(--ink-4);font-size:var(--fs-xs);margin-left:.4rem;padding:.1rem .4rem;background:var(--surface-sink);border-radius:4px">鏁寸悊涓?/em></span></li>
+          <li><span class="footer__soon" style="color:var(--ink-4);font-size:var(--fs-sm)">在线 Demo<em style="font-style:normal;color:var(--ink-4);font-size:var(--fs-xs);margin-left:.4rem;padding:.1rem .4rem;background:var(--surface-sink);border-radius:4px">暂无</em></span></li>
+          <li><span class="footer__soon" style="color:var(--ink-4);font-size:var(--fs-sm)">部署文档<em style="font-style:normal;color:var(--ink-4);font-size:var(--fs-xs);margin-left:.4rem;padding:.1rem .4rem;background:var(--surface-sink);border-radius:4px">整理中</em></span></li>
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
-      <span>漏 2026 缁挎簮鍐滈矞 路 Built with Vue 2 + Spring Boot 路 Vibe Coding 姣曚笟璁捐寮€婧愰」鐩?/span>
+      <span>© 2026 绿源农鲜 · Built with Vue 2 + Spring Boot · Vibe Coding 毕业设计开源项目</span>
       <span class="footer__clock" aria-hidden="true">UTC+8 <span id="clock">00:00:00</span></span>
     </div>
   </div>
@@ -711,7 +710,6 @@ ul{margin:0;padding:0;list-style:none}
 
 <script>
 (function(){
-  // 婊氬姩鎻ず
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){
@@ -720,7 +718,7 @@ ul{margin:0;padding:0;list-style:none}
     },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
   }
-  // 绉诲姩绔娊灞?  var btn=document.getElementById('navToggle');
+  var btn=document.getElementById('navToggle');
   var drawer=document.getElementById('nav-drawer');
   if(btn&&drawer){
     btn.addEventListener('click',function(){
@@ -734,7 +732,6 @@ ul{margin:0;padding:0;list-style:none}
       });
     });
   }
-  // 鏃堕挓
   var c=document.getElementById('clock');
   if(c){
     (function tick(){
@@ -743,7 +740,6 @@ ul{margin:0;padding:0;list-style:none}
       setTimeout(tick,1000);
     })();
   }
-  // 骞虫粦婊氬姩
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
       var id=a.getAttribute('href');
