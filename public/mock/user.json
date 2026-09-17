@@ -1,0 +1,79 @@
+{
+  "code": "200",
+  "msg": "成功",
+  "data": {
+    "total": 4,
+    "list": [
+      {
+        "id": 7,
+        "username": "zhaoliu",
+        "name": "赵六",
+        "password": "123456",
+        "role": "USER",
+        "newPassword": null,
+        "avatar": "zhaoliu_avatar.png",
+        "token": null,
+        "phone": "12345678910",
+        "email": "zhaoliu@qq.com",
+        "account": 940.20
+      },
+      {
+        "id": 6,
+        "username": "wangwu",
+        "name": "王五",
+        "password": "123456",
+        "role": "USER",
+        "newPassword": null,
+        "avatar": "wangwu_avatar.jpg",
+        "token": null,
+        "phone": "12345879100",
+        "email": "wangwu@qq.com",
+        "account": 0.00
+      },
+      {
+        "id": 3,
+        "username": "lisi",
+        "name": "李四",
+        "password": "123456",
+        "role": "USER",
+        "newPassword": null,
+        "avatar": "lisi_avatar.png",
+        "token": null,
+        "phone": "13899887766",
+        "email": "ccc@xm.com",
+        "account": 970.10
+      },
+      {
+        "id": 2,
+        "username": "zhangsan",
+        "name": "张三",
+        "password": "123456",
+        "role": "USER",
+        "newPassword": null,
+        "avatar": "zhangsan_avatar.png",
+        "token": null,
+        "phone": "13877889988",
+        "email": "aaa@xm.com",
+        "account": 201.00
+      }
+    ],
+    "pageNum": 1,
+    "pageSize": 20,
+    "size": 4,
+    "startRow": 1,
+    "endRow": 4,
+    "pages": 1,
+    "prePage": 0,
+    "nextPage": 0,
+    "isFirstPage": true,
+    "isLastPage": true,
+    "hasPreviousPage": false,
+    "hasNextPage": false,
+    "navigatePages": 8,
+    "navigatepageNums": [
+      1
+    ],
+    "navigateFirstPage": 1,
+    "navigateLastPage": 1
+  }
+}

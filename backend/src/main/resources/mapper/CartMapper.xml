@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.CartMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.Cart">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_image" property="productImage"/>
+        <result column="price" property="price"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="is_selected" property="isSelected"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, product_id, product_name, product_image, price, quantity, total_price, is_selected, create_time, update_time
+    </sql>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM cart WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM cart WHERE user_id = #{userId} AND product_id = #{productId}
+    </select>
+
+    <delete id="deleteByUserId">
+        DELETE FROM cart WHERE user_id = #{userId}
+    </delete>
+
+    <update id="updateQuantity">
+        UPDATE cart SET quantity = #{quantity}, total_price = price * #{quantity}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateSelected">
+        UPDATE cart SET is_selected = #{isSelected}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateAllSelected">
+        UPDATE cart SET is_selected = #{isSelected}, update_time = NOW() WHERE user_id = #{userId}
+    </update>
+
+    <select id="countByUserId" resultType="int">
+        SELECT COUNT(*) FROM cart WHERE user_id = #{userId}
+    </select>
+
+    <select id="sumQuantityByUserId" resultType="int">
+        SELECT COALESCE(SUM(quantity), 0) FROM cart WHERE user_id = #{userId}
+    </select>
+
+    <delete id="deleteByUserIdAndProductId">
+        DELETE FROM cart WHERE user_id = #{userId} AND product_id = #{productId}
+    </delete>
+
+    <delete id="deleteSelectedByUserId">
+        DELETE FROM cart WHERE user_id = #{userId} AND is_selected = 1
+    </delete>
+
+</mapper>

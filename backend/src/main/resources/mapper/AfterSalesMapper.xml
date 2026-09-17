@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.AfterSalesMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.AfterSales">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="type" property="type"/>
+        <result column="reason" property="reason"/>
+        <result column="description" property="description"/>
+        <result column="images" property="images"/>
+        <result column="refund_amount" property="refundAmount"/>
+        <result column="status" property="status"/>
+        <result column="refund_status" property="refundStatus"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="handle_time" property="handleTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, merchant_id, order_id, type, reason, description, images,
+        refund_amount, status, refund_status, remark, create_time, update_time, handle_time
+    </sql>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales WHERE merchant_id = #{merchantId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales WHERE order_id = #{orderId}
+    </select>
+
+    <select id="selectByUserIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales
+        WHERE user_id = #{userId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales
+        WHERE merchant_id = #{merchantId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <update id="updateStatus">
+        UPDATE after_sales SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="approveAfterSales">
+        UPDATE after_sales SET status = #{status}, refund_status = #{refundStatus},
+        handle_time = NOW(), remark = #{remark} WHERE id = #{id}
+    </update>
+
+    <update id="rejectAfterSales">
+        UPDATE after_sales SET status = 'rejected', handle_time = NOW(), remark = #{remark} WHERE id = #{id}
+    </update>
+
+    <update id="completeAfterSales">
+        UPDATE after_sales SET status = 'completed', refund_status = 'success', handle_time = NOW() WHERE id = #{id}
+    </update>
+
+    <select id="countByUserIdAndStatus" resultType="int">
+        SELECT COUNT(*) FROM after_sales WHERE user_id = #{userId} AND status = #{status}
+    </select>
+
+    <select id="countByMerchantIdAndStatus" resultType="int">
+        SELECT COUNT(*) FROM after_sales WHERE merchant_id = #{merchantId} AND status = #{status}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM after_sales
+        <where>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="merchantId != null">AND merchant_id = #{merchantId}</if>
+            <if test="status != null and status != ''">AND status = #{status}</if>
+            <if test="type != null and type != ''">AND type = #{type}</if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,94 @@
+.front-notice {
+    padding: 5px 20px;
+    color: #666;
+    font-size: 12px
+}
+
+.front-header {
+    display: flex;
+    height: 60px;
+    line-height: 60px;
+    background: white;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.front-header-left {
+    width: 260px;
+    display: flex;
+    align-items: center;
+}
+
+.front-header-left img,
+.front-header-dropdown img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%
+}
+
+.front-header-left .title {
+    flex: 1;
+    color: #355476;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.front-header-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.front-header-right {
+    width: 220px;
+    padding-right: 12px;
+    /* 使用flex使内容垂直居中并右对齐 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.front-header-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.front-header-dropdown>div {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    /* 不换行，保证用户名与下拉图标在一行 */
+    margin-left: 4px;
+}
+
+.front-header-dropdown img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.el-dropdown-menu {
+    width: 100px !important;
+    text-align: center !important;
+}
+
+/*页面具体样式自定义*/
+.main-content {
+    width: 70%;
+    margin: 5px auto;
+}
+
+/* ElementUI 样式覆盖 */
+.el-menu.el-menu--horizontal {
+    border: none !important;
+    height: 59px;
+}

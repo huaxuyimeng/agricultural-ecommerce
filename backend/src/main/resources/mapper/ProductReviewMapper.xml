@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.ProductReviewMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.ProductReview">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="rating" property="rating"/>
+        <result column="content" property="content"/>
+        <result column="images" property="images"/>
+        <result column="reply_content" property="replyContent"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="ReviewWithUserMap" type="com.example.vuehouduan.entity.ProductReview" extends="BaseResultMap">
+        <result column="user_name" property="userName"/>
+        <result column="user_avatar" property="userAvatar"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, product_id, user_id, order_id, rating, content, images,
+        reply_content, reply_time, status, create_time, update_time
+    </sql>
+
+    <select id="selectByProductId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM product_reviews
+        WHERE product_id = #{productId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByProductIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM product_reviews
+        WHERE product_id = #{productId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM product_reviews
+        WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM product_reviews WHERE order_id = #{orderId}
+    </select>
+
+    <select id="countByProductId" resultType="int">
+        SELECT COUNT(*) FROM product_reviews WHERE product_id = #{productId}
+    </select>
+
+    <select id="countByProductIdAndStatus" resultType="int">
+        SELECT COUNT(*) FROM product_reviews WHERE product_id = #{productId} AND status = #{status}
+    </select>
+
+    <select id="avgRatingByProductId" resultType="java.math.BigDecimal">
+        SELECT COALESCE(AVG(rating), 0) FROM product_reviews
+        WHERE product_id = #{productId} AND status = 'APPROVED'
+    </select>
+
+    <update id="updateStatus">
+        UPDATE product_reviews SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <update id="replyReview">
+        UPDATE product_reviews SET reply_content = #{replyContent}, reply_time = NOW() WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByProductId">
+        DELETE FROM product_reviews WHERE product_id = #{productId}
+    </delete>
+
+    <select id="selectReviewsWithUser" resultMap="ReviewWithUserMap">
+        SELECT r.*, u.name AS user_name, u.avatar AS user_avatar
+        FROM product_reviews r
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.product_id = #{productId}
+        <if test="status != null and status != ''">
+            AND r.status = #{status}
+        </if>
+        ORDER BY r.create_time DESC
+    </select>
+
+</mapper>

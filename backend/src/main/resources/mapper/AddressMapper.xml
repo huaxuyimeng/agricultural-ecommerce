@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.AddressMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.Address">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="detail" property="detail"/>
+        <result column="full_address" property="fullAddress"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, name, phone, province, city, district, detail, full_address, is_default, create_time, update_time
+    </sql>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM addresses
+        WHERE user_id = #{userId} ORDER BY is_default DESC, create_time DESC
+    </select>
+
+    <select id="selectDefaultByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM addresses
+        WHERE user_id = #{userId} AND is_default = 1 LIMIT 1
+    </select>
+
+    <update id="clearDefaultByUserId">
+        UPDATE addresses SET is_default = 0 WHERE user_id = #{userId}
+    </update>
+
+    <update id="setDefault">
+        UPDATE addresses SET is_default = 1 WHERE id = #{id}
+    </update>
+
+    <select id="countByUserId" resultType="int">
+        SELECT COUNT(*) FROM addresses WHERE user_id = #{userId}
+    </select>
+
+    <update id="updateAddressSelective">
+        UPDATE addresses
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="district != null">district = #{district},</if>
+            <if test="detail != null">detail = #{detail},</if>
+            <if test="fullAddress != null">full_address = #{fullAddress},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

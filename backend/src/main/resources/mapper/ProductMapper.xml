@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.Product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="original_price" property="originalPrice"/>
+        <result column="image" property="image"/>
+        <result column="category" property="category"/>
+        <result column="stock" property="stock"/>
+        <result column="unit" property="unit"/>
+        <result column="weight" property="weight"/>
+        <result column="origin" property="origin"/>
+        <result column="brand" property="brand"/>
+        <result column="is_hot" property="isHot"/>
+        <result column="is_new" property="isNew"/>
+        <result column="is_recommend" property="isRecommend"/>
+        <result column="views" property="views"/>
+        <result column="sales" property="sales"/>
+        <result column="favorites" property="favorites"/>
+        <result column="reviews" property="reviews"/>
+        <result column="status" property="status"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="approve_time" property="approveTime"/>
+        <result column="submit_time" property="submitTime"/>
+    </resultMap>
+
+    <resultMap id="ProductWithMerchantMap" type="com.example.vuehouduan.entity.Product" extends="BaseResultMap">
+        <result column="merchant_name" property="merchantName"/>
+        <result column="merchant_avatar" property="merchantAvatar"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, description, price, original_price, image, category, stock, unit,
+        weight, origin, brand, is_hot, is_new, is_recommend, views, sales, favorites,
+        reviews, status, merchant_id, create_time, update_time, approve_time, submit_time
+    </sql>
+
+    <sql id="Where_Condition">
+        <where>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+            <if test="merchantId != null">
+                AND merchant_id = #{merchantId}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="isHot != null">
+                AND is_hot = #{isHot}
+            </if>
+            <if test="isNew != null">
+                AND is_new = #{isNew}
+            </if>
+            <if test="isRecommend != null">
+                AND is_recommend = #{isRecommend}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (name LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="minPrice != null">
+                AND price &gt;= #{minPrice}
+            </if>
+            <if test="maxPrice != null">
+                AND price &lt;= #{maxPrice}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByCategory" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE category = #{category} AND status = 'approved' ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE merchant_id = #{merchantId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE merchant_id = #{merchantId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE (name LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+          AND status = 'approved'
+        ORDER BY sales DESC
+    </select>
+
+    <select id="selectHotProducts" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE is_hot = 1 AND status = 'approved'
+        ORDER BY sales DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectNewProducts" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE is_new = 1 AND status = 'approved'
+        ORDER BY create_time DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectRecommendedProducts" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE is_recommend = 1 AND status = 'approved'
+        ORDER BY sales DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectTopSales" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        WHERE status = 'approved' ORDER BY sales DESC LIMIT #{limit}
+    </select>
+
+    <update id="updateStock">
+        UPDATE products SET stock = stock + #{delta} WHERE id = #{id}
+    </update>
+
+    <update id="incrementViews">
+        UPDATE products SET views = COALESCE(views, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <update id="incrementSales">
+        UPDATE products SET sales = COALESCE(sales, 0) + #{count} WHERE id = #{id}
+    </update>
+
+    <update id="incrementFavorites">
+        UPDATE products SET favorites = COALESCE(favorites, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <update id="decrementFavorites">
+        UPDATE products SET favorites = COALESCE(favorites, 0) - 1 WHERE id = #{id} AND favorites > 0
+    </update>
+
+    <update id="incrementReviews">
+        UPDATE products SET reviews = COALESCE(reviews, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE products SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="approveProduct">
+        UPDATE products SET status = 'approved', approve_time = NOW() WHERE id = #{id}
+    </update>
+
+    <select id="countByMerchantId" resultType="int">
+        SELECT COUNT(*) FROM products WHERE merchant_id = #{merchantId}
+    </select>
+
+    <select id="countByStatus" resultType="int">
+        SELECT COUNT(*) FROM products WHERE status = #{status}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM products
+        <include refid="Where_Condition"/>
+        <choose>
+            <when test="sortBy == 'price'">
+                ORDER BY price ${sortOrder}
+            </when>
+            <when test="sortBy == 'sales'">
+                ORDER BY sales DESC
+            </when>
+            <when test="sortBy == 'views'">
+                ORDER BY views DESC
+            </when>
+            <otherwise>
+                ORDER BY create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectProductWithMerchant" resultMap="ProductWithMerchantMap">
+        SELECT p.*, m.shop_name AS merchant_name, m.shop_logo AS merchant_avatar
+        FROM products p
+        LEFT JOIN merchants m ON p.merchant_id = m.id
+        WHERE p.id = #{id}
+    </select>
+
+    <select id="selectProductsWithMerchant" resultMap="ProductWithMerchantMap">
+        SELECT p.*, m.shop_name AS merchant_name, m.shop_logo AS merchant_avatar
+        FROM products p
+        LEFT JOIN merchants m ON p.merchant_id = m.id
+        <include refid="Where_Condition"/>
+        ORDER BY p.create_time DESC
+    </select>
+
+    <update id="updateProductSelective">
+        UPDATE products
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="originalPrice != null">original_price = #{originalPrice},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="stock != null">stock = #{stock},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="origin != null">origin = #{origin},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="isHot != null">is_hot = #{isHot},</if>
+            <if test="isNew != null">is_new = #{isNew},</if>
+            <if test="isRecommend != null">is_recommend = #{isRecommend},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBatch">
+        DELETE FROM products WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

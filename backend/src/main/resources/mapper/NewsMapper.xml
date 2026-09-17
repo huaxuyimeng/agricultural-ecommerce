@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.NewsMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.News">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="excerpt" property="excerpt"/>
+        <result column="content" property="content"/>
+        <result column="image" property="image"/>
+        <result column="category" property="category"/>
+        <result column="author" property="author"/>
+        <result column="source" property="source"/>
+        <result column="views" property="views"/>
+        <result column="likes" property="likes"/>
+        <result column="shares" property="shares"/>
+        <result column="tags" property="tags"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, title, description, excerpt, content, image, category, author, source, views, likes, shares, tags, create_time, update_time
+    </sql>
+
+    <select id="selectByCategory" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM news WHERE category = #{category} ORDER BY create_time DESC
+    </select>
+
+    <update id="incrementViews">
+        UPDATE news SET views = COALESCE(views, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <update id="incrementLikes">
+        UPDATE news SET likes = COALESCE(likes, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <update id="incrementShares">
+        UPDATE news SET shares = COALESCE(shares, 0) + 1 WHERE id = #{id}
+    </update>
+
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM news
+        WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectTopViews" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM news ORDER BY views DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectLatest" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM news ORDER BY create_time DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM news
+        <where>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <update id="updateNewsSelective">
+        UPDATE news
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="summary != null">summary = #{summary},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

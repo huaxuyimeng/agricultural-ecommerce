@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.SystemLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.SystemLog">
+        <id column="id" property="id"/>
+        <result column="level" property="level"/>
+        <result column="category" property="category"/>
+        <result column="message" property="message"/>
+        <result column="detail" property="detail"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="ip_address" property="ipAddress"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, level, category, message, detail, user_id, username, ip_address, create_time
+    </sql>
+
+    <select id="selectByLevel" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs WHERE level = #{level} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByCategory" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs WHERE category = #{category} ORDER BY create_time DESC
+    </select>
+
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs
+        WHERE message LIKE CONCAT('%', #{keyword}, '%') ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="countByLevel" resultType="int">
+        SELECT COUNT(*) FROM system_logs WHERE level = #{level}
+    </select>
+
+    <delete id="deleteBeforeDate">
+        DELETE FROM system_logs WHERE create_time &lt; #{beforeDate}
+    </delete>
+
+    <select id="selectLatest" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs ORDER BY create_time DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM system_logs
+        <where>
+            <if test="level != null and level != ''">AND level = #{level}</if>
+            <if test="category != null and category != ''">AND category = #{category}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="keyword != null and keyword != ''">
+                AND message LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="startTime != null">AND create_time &gt;= #{startTime}</if>
+            <if test="endTime != null">AND create_time &lt;= #{endTime}</if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.BackupMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.Backup">
+        <id column="id" property="id"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_path" property="filePath"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, file_name, file_path, file_size, status, remark, create_time
+    </sql>
+
+    <select id="selectAllOrderByCreateTime" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM backups ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM backups WHERE status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <update id="updateStatus">
+        UPDATE backups SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM backups
+    </select>
+
+    <select id="selectLatest" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM backups ORDER BY create_time DESC LIMIT #{limit}
+    </select>
+
+    <delete id="deleteBeforeDate">
+        DELETE FROM backups WHERE create_time &lt; #{beforeDate}
+    </delete>
+
+</mapper>

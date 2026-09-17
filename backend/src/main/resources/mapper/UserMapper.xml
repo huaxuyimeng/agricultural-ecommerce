@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="role" property="role"/>
+        <result column="avatar" property="avatar"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="account" property="account"/>
+        <result column="token" property="token"/>
+        <result column="student_id" property="studentId"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+    </resultMap>
+
+    <resultMap id="UserWithMerchantMap" type="com.example.vuehouduan.entity.User" extends="BaseResultMap">
+        <result column="shop_name" property="shopName"/>
+        <result column="shop_address" property="shopAddress"/>
+        <result column="shop_description" property="shopDescription"/>
+        <result column="shop_logo" property="shopLogo"/>
+        <result column="business_license" property="businessLicense"/>
+        <result column="approval_status" property="approvalStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, username, password, name, role, avatar, email, phone, account, token,
+        student_id, status, description, gender, birthday, address,
+        create_time, update_time, last_login_time
+    </sql>
+
+    <sql id="Where_Condition">
+        <where>
+            <if test="username != null and username != ''">
+                AND username = #{username}
+            </if>
+            <if test="role != null and role != ''">
+                AND role = #{role}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (username LIKE CONCAT('%', #{keyword}, '%')
+                     OR name LIKE CONCAT('%', #{keyword}, '%')
+                     OR phone LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users WHERE username = #{username}
+    </select>
+
+    <select id="selectByRole" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users WHERE role = #{role}
+    </select>
+
+    <select id="selectActiveByRole" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users WHERE role = #{role} AND status = 1
+    </select>
+
+    <select id="countByUsername" resultType="int">
+        SELECT COUNT(*) FROM users WHERE username = #{username}
+    </select>
+
+    <select id="countByRole" resultType="int">
+        SELECT COUNT(*) FROM users WHERE role = #{role}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE users SET status = #{status}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updatePassword">
+        UPDATE users SET password = #{password}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateAccount">
+        UPDATE users SET account = #{account}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateAvatar">
+        UPDATE users SET avatar = #{avatar}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateLastLoginTime">
+        UPDATE users SET last_login_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateToken">
+        UPDATE users SET token = #{token} WHERE id = #{id}
+    </update>
+
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users
+        WHERE username LIKE CONCAT('%', #{keyword}, '%')
+           OR name LIKE CONCAT('%', #{keyword}, '%')
+           OR phone LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="selectActiveMerchants" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users WHERE role = 'MERCHANT' AND status = 1
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM users
+        <include refid="Where_Condition"/>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectUserWithMerchant" resultMap="UserWithMerchantMap">
+        SELECT u.*, m.shop_name, m.shop_address, m.shop_description, m.shop_logo,
+               m.business_license, m.approval_status
+        FROM users u
+        LEFT JOIN merchants m ON u.id = m.id
+        WHERE u.id = #{id}
+    </select>
+
+    <select id="selectMerchantsWithShop" resultMap="UserWithMerchantMap">
+        SELECT u.*, m.shop_name, m.shop_address, m.shop_description, m.shop_logo,
+               m.business_license, m.approval_status
+        FROM users u
+        LEFT JOIN merchants m ON u.id = m.id
+        WHERE u.role = 'MERCHANT'
+        <if test="status != null and status != ''">
+            AND m.approval_status = #{status}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (u.username LIKE CONCAT('%', #{keyword}, '%') OR u.name LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY u.create_time DESC
+    </select>
+
+    <update id="updateUserSelective">
+        UPDATE users
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBatch">
+        DELETE FROM users WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

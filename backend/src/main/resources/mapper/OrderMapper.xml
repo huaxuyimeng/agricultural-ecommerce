@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuehouduan.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.vuehouduan.entity.Order">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="user_id" property="userId"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="actual_amount" property="actualAmount"/>
+        <result column="status" property="status"/>
+        <result column="payment_method" property="paymentMethod"/>
+        <result column="payment_status" property="paymentStatus"/>
+        <result column="shipping_address" property="shippingAddress"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="ship_time" property="shipTime"/>
+        <result column="deliver_time" property="deliverTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="express_company" property="expressCompany"/>
+        <result column="express_no" property="expressNo"/>
+    </resultMap>
+
+    <resultMap id="OrderDetailMap" type="com.example.vuehouduan.entity.Order" extends="BaseResultMap">
+        <result column="user_name" property="userName"/>
+        <result column="merchant_name" property="merchantName"/>
+        <collection property="products" ofType="com.example.vuehouduan.entity.OrderProduct"
+                    column="order_id" select="com.example.vuehouduan.mapper.OrderProductMapper.selectByOrderId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_id, user_id, merchant_id, total_amount, actual_amount, status,
+        payment_method, payment_status, shipping_address, contact_name, contact_phone,
+        remark, create_time, pay_time, ship_time, deliver_time, close_time,
+        express_company, express_no
+    </sql>
+
+    <sql id="Where_Condition">
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="merchantId != null">
+                AND merchant_id = #{merchantId}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (order_id LIKE CONCAT('%', #{keyword}, '%')
+                     OR contact_name LIKE CONCAT('%', #{keyword}, '%')
+                     OR contact_phone LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="startTime != null">
+                AND create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND create_time &lt;= #{endTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders WHERE order_id = #{orderId}
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE merchant_id = #{merchantId} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByUserIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE user_id = #{userId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByMerchantIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE merchant_id = #{merchantId} AND status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE status = #{status} ORDER BY create_time DESC
+    </select>
+
+    <update id="updateStatus">
+        UPDATE orders SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <update id="updatePayStatus">
+        UPDATE orders SET status = #{status}, pay_time = NOW(), payment_status = 'PAID' WHERE id = #{id}
+    </update>
+
+    <update id="updateShipInfo">
+        UPDATE orders SET status = #{status}, ship_time = NOW(),
+        express_company = #{expressCompany}, express_no = #{expressNo}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateDeliverStatus">
+        UPDATE orders SET status = #{status}, deliver_time = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="cancelOrder">
+        UPDATE orders SET status = 'CANCELLED', close_time = NOW(), remark = #{remark} WHERE id = #{id}
+    </update>
+
+    <select id="countByUserIdAndStatus" resultType="int">
+        SELECT COUNT(*) FROM orders WHERE user_id = #{userId} AND status = #{status}
+    </select>
+
+    <select id="countByMerchantIdAndStatus" resultType="int">
+        SELECT COUNT(*) FROM orders WHERE merchant_id = #{merchantId} AND status = #{status}
+    </select>
+
+    <select id="countByStatus" resultType="int">
+        SELECT COUNT(*) FROM orders WHERE status = #{status}
+    </select>
+
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        WHERE contact_name LIKE CONCAT('%', #{keyword}, '%')
+           OR contact_phone LIKE CONCAT('%', #{keyword}, '%')
+           OR order_id LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM orders
+        <include refid="Where_Condition"/>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectOrderDetail" resultMap="OrderDetailMap">
+        SELECT o.*, u.name AS user_name, m.shop_name AS merchant_name
+        FROM orders o
+        LEFT JOIN users u ON o.user_id = u.id
+        LEFT JOIN merchants m ON o.merchant_id = m.id
+        WHERE o.id = #{id}
+    </select>
+
+    <select id="selectOrderStats" resultType="java.util.HashMap">
+        SELECT
+            COUNT(*) AS total,
+            SUM(CASE WHEN status = 'PENDING' THEN 1 ELSE 0 END) AS pending,
+            SUM(CASE WHEN status = 'PAID' THEN 1 ELSE 0 END) AS paid,
+            SUM(CASE WHEN status IN ('SHIPPED', 'SHIPPING') THEN 1 ELSE 0 END) AS shipping,
+            SUM(CASE WHEN status IN ('DELIVERED', 'COMPLETED') THEN 1 ELSE 0 END) AS completed,
+            SUM(CASE WHEN status = 'REFUNDED' THEN 1 ELSE 0 END) AS refunded,
+            COALESCE(SUM(total_amount), 0) AS totalAmount
+        FROM orders
+        <where>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="merchantId != null">AND merchant_id = #{merchantId}</if>
+        </where>
+    </select>
+
+    <delete id="deleteBatch">
+        DELETE FROM orders WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
